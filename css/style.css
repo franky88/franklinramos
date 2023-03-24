@@ -102,7 +102,7 @@
     justify-content: space-between;
 }
 .about-content {
-    margin-left: 10rem;
+    margin-left: 5rem;
     margin-right: 15rem;
     color: #6E6E6E;
     display: flex;
@@ -126,6 +126,10 @@
     text-decoration: none;
     color: white;
 }
+.portfolio:hover {
+    color: black;
+    box-shadow: 5px 5px 0px rgba(255, 166, 0, 0.5);
+}
 .cv {
     padding: .8rem;
     width: 8rem;
@@ -134,4 +138,8 @@
     border-radius: .4rem;
     text-decoration: none;
     color: orange;
+}
+.cv:hover {
+    color: black;
+    box-shadow: 5px 5px 0px rgba(255, 166, 0, 0.5);
 }
