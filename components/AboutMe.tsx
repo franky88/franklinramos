@@ -1,7 +1,11 @@
+"use client";
+
 import { Facebook, Twitter, Download } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import generatePDF from "@/utils/pdfGenerator";
+import { useEffect, useState } from "react";
 
 const interBlack = Inter({
   weight: ["900"],
@@ -14,6 +18,18 @@ const interRegular = Inter({
 });
 
 const AboutMe = () => {
+  const [experience, setExperience] = useState<Experience[]>([]);
+
+  useEffect(() => {
+    const fetchExperience = async () => {
+      const response = await fetch("/api/experience");
+      const data = await response.json();
+      setExperience(data.experience);
+    };
+
+    fetchExperience();
+  }, []);
+
   return (
     <section className="container h-screen mx-auto px-8">
       <div className="h-full flex flex-col gap-8 items-start justify-center">
@@ -34,10 +50,15 @@ const AboutMe = () => {
             attention to detail drives me to deliver high-quality work in every
             project I undertake.
           </p>
-          <div className="mt-4">
-            <Button variant={"default"} className="flex items-center">
-              <Download className="w-4" />
-              Resume
+          <div className="flex gap-4 mt-4">
+            <a href="/franklinramos.pdf" download>
+              <Button variant={"default"} className="flex items-center">
+                <Download className="w-4" />
+                Resume
+              </Button>
+            </a>
+            <Button onClick={() => generatePDF({ experience: experience })}>
+              PDF
             </Button>
           </div>
         </div>

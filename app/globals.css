@@ -85,7 +85,6 @@ body {
   grid-template-columns: repeat(2, 1fr); /* Two columns */
 }
 
-
 .vertical-line {
   width: 1px; /* Thickness of the line */
   height: 50px; /* Height of the line */
@@ -96,4 +95,41 @@ body {
 .container {
   position: relative; /* Ensure the parent has relative positioning */
   height: 100%; /* Make sure the parent has a height defined */
+}
+
+.scrollable-grid {
+  max-height: 500px; /* Adjust height as needed */
+  overflow-y: scroll;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.scrollable-grid::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+.masonry-grid {
+  column-count: 2;
+  column-gap: 1rem;
+  width: 100%;
+}
+
+.masonry-grid-item {
+  break-inside: avoid; /* Prevent items from breaking inside columns */
+  margin-bottom: 1rem; /* Gap between rows */
+  position: relative;
+  overflow: hidden;
+  opacity: 1;
+}
+
+@screen md {
+  .masonry-grid {
+    column-count: 2; /* 2 columns on medium screens */
+  }
+}
+
+@screen lg {
+  .masonry-grid {
+    column-count: 2; /* 4 columns on large screens */
+  }
 }
