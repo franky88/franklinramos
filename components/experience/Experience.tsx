@@ -1,7 +1,5 @@
 import { Inter } from "next/font/google";
 import ExperienceList from "./ExperienceList";
-import { SignedIn } from "@clerk/nextjs";
-import AddExperience from "./AddExperience";
 
 const interBlack = Inter({
   weight: ["900"],

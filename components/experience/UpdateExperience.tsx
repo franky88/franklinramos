@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
-import { Edit, Plus } from "lucide-react";
+import { Edit } from "lucide-react";
 import {
   Dialog,
   DialogContent,

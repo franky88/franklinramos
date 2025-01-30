@@ -9,8 +9,6 @@ import { SignedIn } from "@clerk/nextjs";
 import AddProject from "./AddProject";
 import AddCategory from "../category/AddCategory";
 import axiosInstance from "@/lib/axiosInstance";
-import useSWR from "swr";
-import { fetchProjects } from "@/lib/fetcher";
 import { SlidersHorizontal } from "lucide-react";
 import {
   Select,
@@ -19,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import CategoryList from "../category/CategoryList";
 
 const ProjectList = () => {
   const [projects, setProjects] = useState<Portfolio[]>([]);
@@ -97,6 +96,10 @@ const ProjectList = () => {
             </div>
             <SignedIn>
               <div className="flex items-center gap-4">
+                <CategoryList
+                  updateCategoryData={fetchCategories}
+                  categories={categories}
+                />
                 <AddCategory updateCategoryList={fetchCategories} />
                 <AddProject updateProjectList={fetchProjects} />
               </div>

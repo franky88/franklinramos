@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { Dialog } from "@radix-ui/react-dialog";
 import {
@@ -7,7 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import axiosInstance from "@/lib/axiosInstance";
 import { ArrowRight } from "lucide-react";
 
 interface ProjectDetailsProps {

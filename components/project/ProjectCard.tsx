@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
 import axiosInstance from "@/lib/axiosInstance";
 import ProjectDetails from "./ProjectDetails";
 import Image from "next/image";
@@ -8,7 +7,7 @@ interface ProjectCardProps {
   title: string;
   description: string;
   url: string;
-  imageUrl: string;
+  imageUrl: string | undefined;
   categoryId: string;
 }
 

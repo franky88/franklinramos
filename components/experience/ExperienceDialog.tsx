@@ -7,7 +7,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { CircleCheck } from "lucide-react";
-import { Card, CardContent, CardHeader } from "../ui/card";
 import { ExperienceChart } from "./ExperienceChart";
 
 interface ExperienceDialogProps {

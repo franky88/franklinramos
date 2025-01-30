@@ -1,41 +1,82 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Button } from "../ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
+import { Trash2 } from "lucide-react";
+import UpdateCategory from "./UpdateCategory";
 
-const CategoryList = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
+interface CategoryListProps {
+  categories: Category[];
+  updateCategoryData: () => void;
+}
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await fetch("/api/category");
-      const data = await response.json();
-      setCategories(data.category);
-    };
-
-    fetchCategories();
-  }, []);
+const CategoryList = ({
+  categories,
+  updateCategoryData,
+}: CategoryListProps) => {
+  const [open, setOpen] = useState(false);
 
   return (
     <>
-      <div className="flex gap-0">
-        <Select>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select category" />
-          </SelectTrigger>
-          {categories.map((category) => (
-            <SelectContent key={category.id} className="w-full">
-              <SelectItem value={category.id}>{category.name}</SelectItem>
-            </SelectContent>
-          ))}
-        </Select>
-      </div>
+      <Button variant={"outline"} onClick={() => setOpen(true)}>
+        Category list
+      </Button>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Category list</DialogTitle>
+            <DialogDescription>
+              List of all projects categories
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex gap-0">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Category name</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {categories.map((cat) => (
+                  <TableRow key={cat.id}>
+                    <TableCell>
+                      <div className="flex items-center justify-between">
+                        <div>{cat.name}</div>
+                        <div className="flex items-center gap-2">
+                          <UpdateCategory
+                            id={cat.id}
+                            name={cat.name}
+                            updateCategoryList={updateCategoryData}
+                          />
+                          <Button variant={"link"} size={"sm"}>
+                            <Trash2 className="text-red-500 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

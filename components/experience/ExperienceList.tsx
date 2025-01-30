@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleDot, CircleChevronUp, Edit, Trash2 } from "lucide-react";
+import { CircleDot, CircleChevronUp } from "lucide-react";
 import ExperienceDialog from "./ExperienceDialog";
 import { SignedIn } from "@clerk/nextjs";
 import AddExperience from "./AddExperience";

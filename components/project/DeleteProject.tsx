@@ -10,13 +10,6 @@ import {
 import { Trash2 } from "lucide-react";
 import { useMyToaster } from "@/utils/mytoast";
 
-interface Portfolio {
-  id: number;
-  title: string;
-  description: string;
-  url: string;
-}
-
 interface DeleteProjectProps {
   productId: number;
   setProjects: () => void;
