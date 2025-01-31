@@ -4,7 +4,6 @@ import { Facebook, Twitter, Download } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import generatePDF from "@/utils/pdfGenerator";
 import { useEffect, useState } from "react";
 
 const interBlack = Inter({
@@ -57,9 +56,6 @@ const AboutMe = () => {
                 Resume
               </Button>
             </a>
-            <Button onClick={() => generatePDF({ experience: experience })}>
-              PDF
-            </Button>
           </div>
         </div>
         <div className="flex items-center gap-5">
