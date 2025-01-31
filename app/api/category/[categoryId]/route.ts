@@ -1,10 +1,8 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, { params }: { params: { categoryId: string } }) {
-  const { categoryId } = await params;
-
-  console.log(request)
+export async function GET(request: NextRequest, context: { params: { categoryId: string } }) {
+  const { categoryId } = context.params;
 
   try {
     const category = await prisma.category.findUnique({
