@@ -42,7 +42,6 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
     try {
       const response = await axiosInstance.get("/category");
       const data = response.data;
-      console.log("Fetched categories:", data); // Debugging log
       setCategories(data.categories || []);
     } catch (error) {
       console.error("Failed to fetch categories:", error);

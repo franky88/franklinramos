@@ -32,7 +32,7 @@ const ProjectList = () => {
       const res = await axiosInstance.get(`/portfolio${queryParam}`);
       const data = res.data;
 
-      console.log("Fetched Projects:", data.portfolio);
+      // console.log("Fetched Projects:", data.portfolio);
 
       setProjects(data.portfolio || []);
     } catch (error) {

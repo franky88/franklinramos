@@ -59,7 +59,7 @@ const UpdateCategory = ({
         return;
       }
 
-      const updatedCategory = await response.json();
+      // const updatedCategory = await response.json();
       updateCategoryList();
       setIsOpen(false);
       showToast("Updated successfully!", "Category name has been updated.");

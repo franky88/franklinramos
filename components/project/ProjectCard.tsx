@@ -23,7 +23,6 @@ const ProjectCard = ({
   const fetchCategory = async (categoryId: string) => {
     try {
       const response = await axiosInstance.get(`/category/${categoryId}`);
-      console.log("Fetched category:", response.data);
       const data = response.data;
       setCategory(data.category.name);
     } catch (error) {

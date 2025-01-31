@@ -46,9 +46,9 @@ const ExperienceDialog = ({
               </span>
             ))}
           </div>
-          <div>
+          {/* <div>
             <ExperienceChart fromDate={startDate} toDate={endDate} />
-          </div>
+          </div> */}
         </div>
       </DialogContent>
     </Dialog>

@@ -7,16 +7,13 @@ import AboutMe from "@/components/AboutMe";
 import Projects from "@/components/project/Projects";
 import Contact from "@/components/Contact";
 import Experience from "@/components/experience/Experience";
-import { ChevronLeft, Sidebar } from "lucide-react";
+import { ChevronLeft, Cog } from "lucide-react";
 import Image from "next/image";
 import {
-  RedirectToSignIn,
   SignedIn,
   SignedOut,
-  SignIn,
   SignInButton,
   SignOutButton,
-  UserButton,
 } from "@clerk/nextjs";
 
 const interBlack = Inter({
@@ -149,15 +146,22 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div>
+              <div className="flex flex-col items-end">
+                <div className="flex items-center gap-2">
+                  <small>All rights reserved {new Date().getFullYear()} </small>
+                  <div className="text-blue-500">
+                    <small>
+                      <SignedOut>
+                        <SignInButton />
+                      </SignedOut>
+                      <SignedIn>
+                        <SignOutButton />
+                      </SignedIn>
+                    </small>
+                  </div>
+                </div>
                 <small className="flex items-center gap-2">
-                  All rights reserved {new Date().getFullYear()}{" "}
-                  <SignedOut>
-                    <SignInButton />
-                  </SignedOut>
-                  <SignedIn>
-                    <SignOutButton />
-                  </SignedIn>
+                  <Cog className="w-4" /> Working on the mobile view
                 </small>
               </div>
             </div>

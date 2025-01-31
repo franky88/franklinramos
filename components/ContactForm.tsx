@@ -44,7 +44,7 @@ export function ContactForm() {
   };
 
   return (
-    <Card className="shadow-none">
+    <Card className="shadow-none rounded-none border-none">
       <CardContent>
         <Form {...form}>
           <form

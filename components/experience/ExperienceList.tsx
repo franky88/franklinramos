@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleDot, CircleChevronUp } from "lucide-react";
+import { CircleDot, CircleChevronUp, Star } from "lucide-react";
 import ExperienceDialog from "./ExperienceDialog";
 import { SignedIn } from "@clerk/nextjs";
 import AddExperience from "./AddExperience";
@@ -14,18 +14,44 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip";
 import { Button } from "../ui/button";
+import AddSkill from "../skill/AddSkill";
+import axiosInstance from "@/lib/axiosInstance";
+import { useMyToaster } from "@/utils/mytoast";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
+import { Card, CardContent, CardHeader } from "../ui/card";
 
 const ExperienceList = () => {
   const [experience, setExperience] = useState<Experience[]>([]);
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const showToast = useMyToaster();
 
   const fetchExperience = async () => {
-    const response = await fetch("/api/experience");
-    const data = await response.json();
+    const response = await axiosInstance.get("/experience");
+    const data = await response.data;
     setExperience(data.experience);
+  };
+
+  const fetchSkills = async () => {
+    try {
+      const response = await axiosInstance.get("/skill");
+      const data = response.data;
+      setSkills(data.skills || []);
+    } catch (error) {
+      showToast("Oh no! Something went wrong!", `Error: ${error}`, true);
+    }
   };
 
   useEffect(() => {
     fetchExperience();
+    fetchSkills();
   }, []);
   return (
     <>
@@ -35,13 +61,16 @@ const ExperienceList = () => {
             <SignedIn>
               <div className="flex items-center gap-4">
                 <AddExperience onExperienceAdded={fetchExperience} />
+                <AddSkill onSkillAdded={fetchSkills} />
               </div>
             </SignedIn>
           </div>
         </div>
       </div>
+
+      {/* Project Grid */}
       <div>
-        <div>
+        <div className="scrollable-grid">
           {experience.map((ex) => (
             <div className="flex gap-2 items-start" key={ex.id}>
               <div className="text-blue-900">
@@ -119,6 +148,59 @@ const ExperienceList = () => {
               </div>
             </div>
           ))}
+
+          <Card className="mt-5 rounded-none border-none">
+            <CardHeader>Skill mastery level</CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>
+                      <div className="flex items-center justify-between">
+                        <div>Skills</div>
+                        <div>Level</div>
+                      </div>
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {skills.map((skill) => (
+                    <TableRow key={skill.id}>
+                      <TableCell>
+                        <div className="flex items-center justify-between">
+                          <div className="flex flex-col">
+                            {skill.name}
+                            <small className="text-slate-500">
+                              (Application used: {skill.application})
+                            </small>
+                          </div>
+                          <div className="flex gap-1">
+                            {Array(skill.mastery)
+                              .fill(null)
+                              .map((_, index) => (
+                                <Star
+                                  key={`star-${skill.id}-${index}`} // Ensure unique keys for stars
+                                  className="w-4 text-yellow-500 hover:w-5 duration-300"
+                                  fill={"yellow"}
+                                />
+                              ))}
+                            {Array(10.0 - skill.mastery)
+                              .fill(null)
+                              .map((_, index) => (
+                                <Star
+                                  key={`star-${skill.id}-${index}`} // Ensure unique keys for stars
+                                  className="w-4 text-yellow-500"
+                                />
+                              ))}
+                          </div>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </>

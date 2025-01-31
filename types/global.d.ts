@@ -34,3 +34,12 @@ interface Category {
   id: string;
   name: string;
 }
+
+interface Skill {
+  id: string;
+  name: string;
+  application: string;
+  from: Date | null;
+  to: Date | null;
+  mastery: number
+}
