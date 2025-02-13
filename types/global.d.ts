@@ -37,6 +37,7 @@ interface Category {
 
 interface Skill {
   id: string;
+  _id: string;
   name: string;
   application: string;
   from: Date | null;

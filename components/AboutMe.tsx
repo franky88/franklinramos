@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
+import ResumePDFGenerator from "./ResumePDFGenerator";
+import Link from "next/link";
 
 const interBlack = Inter({
   weight: ["900"],
@@ -41,21 +43,28 @@ const AboutMe = () => {
             alt="profile image"
           />
           <p className={`${interRegular.className} text-[1em] w-[500px] mt-4`}>
-            I am a skilled multimedia artist with over 10 years of experience in
-            the field. My expertise spans graphic design, video editing, email
-            newsletter designs, and logo animations. I excel in both actual and
-            digital animation and am proficient in using Adobe applications, and
-            various other multimedia software. My passion for creativity and
-            attention to detail drives me to deliver high-quality work in every
-            project I undertake.
+            I am a versatile Multimedia Artist with over 10 years of experience
+            in graphic design, video editing, animation, and web development.
+            Skilled in Adobe Creative Suite and various multimedia tools, I
+            create visually compelling and user-friendly digital experiences.
+            With a passion for creativity and innovation, I deliver high-quality
+            designs, animations, and websites that make an impact.
           </p>
           <div className="flex gap-4 mt-4">
-            <a href="/franklinramos.pdf" download>
+            {/* <a href="/franklinramos.pdf" download>
               <Button variant={"default"} className="flex items-center">
                 <Download className="w-4" />
                 Resume
               </Button>
-            </a>
+            </a> */}
+            {/* <ResumePDFGenerator /> */}
+            {/* <PDFResume /> */}
+            <Link href={"/pdf-resume"}>
+              <Button>
+                <Download className="w-4" />
+                Resume
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="flex items-center gap-5">

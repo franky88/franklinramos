@@ -43,7 +43,8 @@ const ExperienceList = () => {
     try {
       const response = await axiosInstance.get("/skill");
       const data = response.data;
-      setSkills(data.skills || []);
+      console.log("Fetching skills", data);
+      setSkills(data || []);
     } catch (error) {
       showToast("Oh no! Something went wrong!", `Error: ${error}`, true);
     }
@@ -165,7 +166,7 @@ const ExperienceList = () => {
                 </TableHeader>
                 <TableBody>
                   {skills.map((skill) => (
-                    <TableRow key={skill.id}>
+                    <TableRow key={skill._id}>
                       <TableCell>
                         <div className="flex items-center justify-between">
                           <div className="flex flex-col">
@@ -179,7 +180,7 @@ const ExperienceList = () => {
                               .fill(null)
                               .map((_, index) => (
                                 <Star
-                                  key={`star-${skill.id}-${index}`} // Ensure unique keys for stars
+                                  key={`star-${skill._id}-${index}`} // Ensure unique keys for stars
                                   className="w-4 text-yellow-500 hover:w-5 duration-300"
                                   fill={"yellow"}
                                 />
@@ -188,7 +189,7 @@ const ExperienceList = () => {
                               .fill(null)
                               .map((_, index) => (
                                 <Star
-                                  key={`star-${skill.id}-${index}`} // Ensure unique keys for stars
+                                  key={`star-${skill._id}-${index}`} // Ensure unique keys for stars
                                   className="w-4 text-yellow-500"
                                 />
                               ))}
