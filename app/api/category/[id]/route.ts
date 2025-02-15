@@ -3,22 +3,20 @@ import { connectDB } from "@/lib/db";
 import { Category } from "@/models/schema";
 import mongoose from "mongoose";
 
-interface RouteContext {
-  params: { id: string };
-}
-
-export async function GET(request: NextRequest, context: RouteContext) {
+export async function GET(request: NextRequest) {
   try {
     await connectDB();
 
-    const { id } = await context.params;
+    // Extract ID from the URL pathname
+    const url = new URL(request.url);
+    const id = url.pathname.split("/").pop(); // Get the last segment (ID)
 
-    // Validate if ID is a valid MongoDB ObjectId
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ message: "Invalid category ID" }, { status: 400 });
     }
 
-    const category = await Category.findById(id).select("_id name");
+    // Query category by ID
+    const category = await Category.findById(id).select("_id name").lean();
 
     if (!category) {
       return NextResponse.json(
@@ -27,7 +25,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
       );
     }
 
-    return NextResponse.json({ category }, { status: 200 });
+    return NextResponse.json(category, { status: 200 });
   } catch (error) {
     console.error("Error fetching category:", error);
     return NextResponse.json(
