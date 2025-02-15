@@ -3,16 +3,17 @@ import { connectDB } from "@/lib/db";
 import { Category } from "@/models/schema";
 import mongoose from "mongoose";
 
-interface ContextParams {
+interface RouteContext {
   params: { id: string };
 }
 
-export async function GET(request: NextRequest, { params }: ContextParams) {
+export async function GET(request: NextRequest, context: RouteContext) {
   try {
     await connectDB();
 
-    const id = params.id;
+    const { id } = await context.params;
 
+    // Validate if ID is a valid MongoDB ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ message: "Invalid category ID" }, { status: 400 });
     }
