@@ -17,7 +17,7 @@ export async function connectDB() {
   if (!cached.promise) {
     console.log("🟡 Connecting to MongoDB...");
     cached.promise = mongoose.connect(MONGO_URL, {
-      dbName: "myprofile",
+      dbName: "myfile",
     }).then((mongoose) => {
       console.log("✅ MongoDB Connected!");
       return mongoose;
