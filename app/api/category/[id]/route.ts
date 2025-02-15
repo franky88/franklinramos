@@ -1,15 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { Category } from "@/models/schema";
+import mongoose from "mongoose";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-): Promise<NextResponse> {
+interface ContextParams {
+  params: { id: string };
+}
+
+export async function GET(request: NextRequest, { params }: ContextParams) {
   try {
     await connectDB();
 
-    const { id } = await params;
+    const id = params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ message: "Invalid category ID" }, { status: 400 });
+    }
 
     const category = await Category.findById(id).select("_id name");
 
