@@ -16,14 +16,10 @@ const portfolioSchema = z.object({
 export async function PATCH(request: NextRequest) {
   try {
     await connectDB();
-
-    // Authenticate user
     const { userId } = getAuth(request);
     if (!userId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-
-    // Parse and validate request body
     const body = await request.json();
     const parsedBody = portfolioSchema.safeParse(body);
 
@@ -36,13 +32,11 @@ export async function PATCH(request: NextRequest) {
 
     const { id, title, description, url, imageUrl, categoryId } = parsedBody.data;
 
-    // Check if portfolio exists
     const portfolio = await Portfolio.findById(id);
     if (!portfolio) {
       return NextResponse.json({ message: "Portfolio not found" }, { status: 404 });
     }
 
-    // Ensure user owns the portfolio
     if (portfolio.userId.toString() !== userId) {
       return NextResponse.json(
         { message: "Unauthorized to update this portfolio" },
@@ -50,7 +44,6 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    // Update the portfolio
     const updatedPortfolio = await Portfolio.findByIdAndUpdate(
       id,
       {

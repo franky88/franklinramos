@@ -9,7 +9,7 @@ export async function GET(
   try {
     await connectDB();
 
-    const { id } = params;
+    const { id } = await params;
 
     const category = await Category.findById(id).select("_id name");
 

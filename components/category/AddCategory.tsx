@@ -22,27 +22,33 @@ interface AddCategoryProps {
 const AddCategory = ({ updateCategoryList }: AddCategoryProps) => {
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const showToast = useMyToaster();
 
   const addCategory = async () => {
-    const response = await axiosInstance.post("/category", {
-      name,
-    });
+    try {
+      setLoading(true);
+      const response = await axiosInstance.post("/category", {
+        name,
+      });
 
-    console.log("category response: ", response);
-
-    if (response.status === 201) {
-      setName("");
-      updateCategoryList();
-      setIsOpen(false);
-      showToast("Created successfully!", "Category has been created");
-    } else {
-      const errorData = await response.data;
-      showToast(
-        "Oh no! Something went wrong!",
-        `Error: ${errorData.message}`,
-        true
-      );
+      if (response.status === 201) {
+        setName("");
+        updateCategoryList();
+        setIsOpen(false);
+        showToast("Created successfully!", "Category has been created");
+      } else {
+        const errorData = await response.data;
+        showToast(
+          "Oh no! Something went wrong!",
+          `Error: ${errorData.message}`,
+          true
+        );
+      }
+    } catch (error) {
+      showToast("Oh no! Something went wrong!", `Error: ${error}`, true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,8 +86,14 @@ const AddCategory = ({ updateCategoryList }: AddCategoryProps) => {
               </Label>
             </div>
             <div>
-              <Button type="submit">
-                <Plus /> Category
+              <Button type="submit" disabled={loading}>
+                {loading ? (
+                  "Creating..."
+                ) : (
+                  <>
+                    <Plus /> Category
+                  </>
+                )}
               </Button>
             </div>
           </form>

@@ -10,9 +10,9 @@ interface ProjectCardProps {
 const ProjectCard = ({ project }: ProjectCardProps) => {
   const [category, setCategory] = useState<string>("");
 
-  const fetchCategory = async (categoryId: string) => {
+  const fetchCategory = async (id: string) => {
     try {
-      const response = await axiosInstance.get(`/category/${categoryId}`);
+      const response = await axiosInstance.get(`/category/${id}`);
       console.log("response", response);
       const data = response.data;
       console.log("category name: ", data.category.name);

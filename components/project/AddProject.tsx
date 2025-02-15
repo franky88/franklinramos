@@ -33,9 +33,10 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [imageUrl, setImageUrl] = useState<string | null>("");
-  const [categoryId, setCategoryId] = useState(""); // State for category selection
-  const [categories, setCategories] = useState<Category[]>([]); // State for fetched categories
+  const [categoryId, setCategoryId] = useState("");
+  const [categories, setCategories] = useState<Category[]>([]);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const showToast = useMyToaster();
 
   // Fetch categories when the dialog opens
@@ -57,36 +58,34 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
   }, [open]);
 
   const addPortfolio = async () => {
-    // const response = await fetch("/api/portfolio/add", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ title, description, url, imageUrl, categoryId }),
-    // });
-
-    const response = await axiosInstance.post("/portfolio/add", {
-      title,
-      description,
-      url,
-      imageUrl,
-      categoryId,
-    });
-
-    console.log("response", response);
-
-    if (response.status === 201) {
-      setTitle("");
-      setDescription("");
-      setUrl("");
-      setCategoryId("");
-      updateProjectList();
-      setOpen(false);
-      showToast("Created successfully!", "Project has been created", false);
-    } else {
-      showToast(
-        "Oh no! Something went wrong!",
-        `${response.data.message}`,
-        true
-      );
+    try {
+      setLoading(true);
+      const response = await axiosInstance.post("/portfolio/add", {
+        title,
+        description,
+        url,
+        imageUrl,
+        categoryId,
+      });
+      if (response.status === 201) {
+        setTitle("");
+        setDescription("");
+        setUrl("");
+        setCategoryId("");
+        updateProjectList();
+        setOpen(false);
+        showToast("Created successfully!", "Project has been created", false);
+      } else {
+        showToast(
+          "Oh no! Something went wrong!",
+          `${response.data.message}`,
+          true
+        );
+      }
+    } catch (error) {
+      showToast("Oh no! Something went wrong!", `${error}`, true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -170,8 +169,14 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
                 </Select>
               </Label>
               <div>
-                <Button type="submit">
-                  <Plus /> Add Portfolio
+                <Button type="submit" disabled={loading}>
+                  {loading ? (
+                    "Creating..."
+                  ) : (
+                    <>
+                      <Plus /> Add Portfolio
+                    </>
+                  )}
                 </Button>
               </div>
             </form>

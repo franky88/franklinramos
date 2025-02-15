@@ -22,10 +22,12 @@ const DeleteProject: React.FC<DeleteProjectProps> = ({
 }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const showToast = useMyToaster();
 
   const deletePortfolio = async () => {
     try {
+      setLoading(true);
       const res = await axiosInstance.delete("/portfolio/remove", {
         data: { id: productId }, // Ensure 'id' matches API expectation
       });
@@ -42,6 +44,8 @@ const DeleteProject: React.FC<DeleteProjectProps> = ({
         "Something went wrong. Please try again.";
       setErrorMessage(errorMessage);
       showToast("Oh no! Something went wrong!", errorMessage, true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,8 +71,13 @@ const DeleteProject: React.FC<DeleteProjectProps> = ({
           </DialogHeader>
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           <div className="flex justify-end gap-2 mt-4">
-            <Button onClick={deletePortfolio} size="sm" variant="destructive">
-              Yes
+            <Button
+              onClick={deletePortfolio}
+              size="sm"
+              variant="destructive"
+              disabled={loading}
+            >
+              {loading ? "Deleting..." : "Yes"}
             </Button>
             <Button onClick={() => setOpen(false)} size="sm" variant="outline">
               No
