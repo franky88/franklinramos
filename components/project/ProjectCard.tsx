@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import axiosInstance from "@/lib/axiosInstance";
 import ProjectDetails from "./ProjectDetails";
 import Image from "next/image";
 
@@ -8,27 +6,6 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
-  const [category, setCategory] = useState<string>("");
-
-  const fetchCategory = async (id: string) => {
-    try {
-      const response = await axiosInstance.get(`/category/${id}`);
-      console.log("response", response);
-      const data = response.data;
-      console.log("category name: ", data.category.name);
-      setCategory(data.category.name);
-    } catch (error) {
-      console.error("Failed to fetch category:", error);
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    if (project.categoryId) {
-      fetchCategory(project.categoryId);
-    }
-  }, [project.categoryId]);
-
   return (
     <>
       <div className="relative overflow-hidden group">
@@ -55,9 +32,8 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           <div className="flex items-start justify-between">
             <div className="flex flex-col gap-1">
               <strong className="text-lg">{project.title.toUpperCase()}</strong>
-              <small>{category}</small>
             </div>
-            <ProjectDetails project={project} categoryName={category} />
+            <ProjectDetails project={project} />
           </div>
         </div>
       </div>
