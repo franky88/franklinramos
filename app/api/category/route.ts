@@ -1,16 +1,13 @@
-import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
-import { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { connectDB } from "@/lib/db";
+import { Category } from "@/models/schema";
 
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   try {
-    const categories = await prisma.category.findMany({
-      select: {
-        id: true,
-        name: true,
-      },
-    });
+    await connectDB();
+    const categories = await Category.find({}, "_id name");
+
     return NextResponse.json({ categories }, { status: 200 });
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -21,11 +18,10 @@ export async function GET() {
   }
 }
 
-
-export async function POST(request: NextRequest) { // Change Request to NextRequest
+export async function POST(request: NextRequest): Promise<Response> {
   try {
-    // Authenticate the user
-    const { userId } = getAuth(request); // Now this should work correctly
+    await connectDB();
+    const { userId } = getAuth(request);
 
     if (!userId) {
       return new Response(JSON.stringify({ message: "Unauthorized" }), {
@@ -34,10 +30,7 @@ export async function POST(request: NextRequest) { // Change Request to NextRequ
       });
     }
 
-    // Parse the request body
-    const body = await request.json();
-
-    // Validate request body
+    const body: { name?: string } = await request.json();
     if (!body.name) {
       return new Response(
         JSON.stringify({ message: "Invalid request body" }),
@@ -45,14 +38,8 @@ export async function POST(request: NextRequest) { // Change Request to NextRequ
       );
     }
 
-    console.log("Request body:", body);
-
-    // Create the portfolio and link it to the authenticated user
-    const category = await prisma.category.create({
-      data: {
-        name: body.name
-      },
-    });
+    const category = new Category({ name: body.name });
+    await category.save();
 
     return new Response(JSON.stringify(category), {
       status: 201,
@@ -60,7 +47,6 @@ export async function POST(request: NextRequest) { // Change Request to NextRequ
     });
   } catch (error) {
     console.error("Error creating category:", error);
-
     return new Response(
       JSON.stringify({ message: "Internal server error" }),
       {

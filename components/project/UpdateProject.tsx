@@ -23,24 +23,20 @@ import { Edit } from "lucide-react";
 import { useMyToaster } from "@/utils/mytoast";
 
 interface UpdateProjectProps {
+  portfolio: Portfolio;
   updateProjectList: () => void;
 }
 
 const UpdateProject = ({
-  id,
-  title,
-  description,
-  url,
-  imageUrl,
-  categoryId,
+  portfolio,
   updateProjectList,
-}: Portfolio & UpdateProjectProps) => {
+}: UpdateProjectProps) => {
   const [formData, setFormData] = useState({
-    title,
-    description,
-    url,
-    imageUrl,
-    categoryId,
+    title: portfolio.title,
+    description: portfolio.description,
+    url: portfolio.url,
+    imageUrl: portfolio.imageUrl,
+    categoryId: portfolio.categoryId,
   });
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -81,34 +77,24 @@ const UpdateProject = ({
     e.preventDefault();
 
     try {
-      const response = await fetch(`/api/portfolio/update`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          ...formData,
-        }),
+      const response = await axiosInstance.patch("/portfolio/update", {
+        id: portfolio._id,
+        ...formData, // This ensures all fields are included
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        setErrorMessage(data.message || "Failed to update portfolio");
+      if (response.status === 200) {
+        setSuccessMessage("Portfolio updated successfully!");
+        updateProjectList();
+        setIsOpen(false);
+        showToast("Updated successfully!", "Project has been updated", false);
+      } else {
+        setErrorMessage(response.data.message || "Failed to update portfolio");
         showToast(
           "Oh no! Something went wrong!",
           "Failed to update project",
           true
         );
-        return;
       }
-
-      const updatedPortfolio = await response.json();
-      setSuccessMessage("Portfolio updated successfully!");
-      console.log("Updated portfolio:", updatedPortfolio);
-      updateProjectList();
-      setIsOpen(false);
-      showToast("Updated successfully!", "Project has been updated", false);
     } catch (error) {
       console.error("Error updating portfolio:", error);
       setErrorMessage("Something went wrong. Please try again.");
@@ -123,7 +109,7 @@ const UpdateProject = ({
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Update portfolio {title}</DialogTitle>
+            <DialogTitle>Update portfolio {portfolio.title}</DialogTitle>
             <DialogDescription>
               Updating the portfolio will change the details of the portfolio.
             </DialogDescription>
@@ -190,7 +176,7 @@ const UpdateProject = ({
                   <SelectContent>
                     <SelectGroup>
                       {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id}>
+                        <SelectItem key={category._id} value={category._id}>
                           {category.name}
                         </SelectItem>
                       ))}

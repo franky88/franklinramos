@@ -11,32 +11,36 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import axiosInstance from "@/lib/axiosInstance";
+import { useMyToaster } from "@/utils/mytoast";
 
 interface UpdateExperienceProps {
   updateExperienceList: () => void;
 }
 
 const UpdateExperience = ({
-  id,
+  _id,
   position,
   description,
   company,
   startDate,
   endDate,
-  isWithLine,
+  isPromoted,
   updateExperienceList,
 }: Experience & UpdateExperienceProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     position,
     description,
     company,
     startDate: startDate ? new Date(startDate) : null,
     endDate: endDate ? new Date(endDate) : null,
-    isWithLine,
+    isPromoted,
   });
+  const showToast = useMyToaster();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -49,41 +53,35 @@ const UpdateExperience = ({
     e.preventDefault();
 
     try {
-      const response = await fetch(`/api/experience/update`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          position: formData.position,
-          description: formData.description,
-          company: formData.company,
-          isWithLine: formData.isWithLine,
-          startDate: formData.startDate
-            ? new Date(formData.startDate).toISOString()
-            : null,
-          endDate: formData.endDate
-            ? new Date(formData.endDate).toISOString()
-            : null,
-        }),
+      setLoading(true);
+      const res = await axiosInstance.patch("/experience/update", {
+        _id: _id,
+        position: formData.position,
+        description: formData.description,
+        company: formData.company,
+        isPromoted: formData.isPromoted,
+        startDate: formData.startDate
+          ? new Date(formData.startDate).toISOString()
+          : null,
+        endDate: formData.endDate
+          ? new Date(formData.endDate).toISOString()
+          : null,
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        console.log("data", data);
-        setErrorMessage(data.message || "Failed to update experience");
+      if (res.status === 200) {
+        setSuccessMessage("Experience updated successfully!");
+        updateExperienceList();
+        setIsOpen(false);
+        showToast("Updated successfully!", `${successMessage}`, false);
+      } else {
+        setErrorMessage(res.data.message || "Failed to update experience");
         return;
       }
-
-      const updatedExperience = await response.json();
-      setSuccessMessage("Experience updated successfully!");
-      console.log("Updated experince:", updatedExperience);
-      updateExperienceList();
-      setIsOpen(false);
     } catch (error) {
       console.error("Error updating experience:", error);
       setErrorMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -122,7 +120,7 @@ const UpdateExperience = ({
                 <Input
                   type="text"
                   name="company"
-                  value={formData.description}
+                  value={formData.company}
                   onChange={handleChange}
                 />
               </Label>
@@ -131,8 +129,9 @@ const UpdateExperience = ({
               <Label className="flex flex-col gap-1">
                 Description
                 <Textarea
+                  name="description"
                   placeholder="Description"
-                  value={formData.description}
+                  value={formData.description || ""}
                   onChange={handleChange}
                 />
                 <small className="text-slate-500">
@@ -184,11 +183,11 @@ const UpdateExperience = ({
               <Label className="flex items-center gap-2">
                 <Input
                   type="checkbox"
-                  checked={formData.isWithLine}
+                  checked={formData.isPromoted}
                   onChange={(e) =>
                     setFormData((prev) => ({
                       ...prev,
-                      isWithLine: e.target.checked,
+                      isPromoted: e.target.checked,
                     }))
                   }
                   className="w-4 h-4"
@@ -197,7 +196,9 @@ const UpdateExperience = ({
               </Label>
             </div>
             <div>
-              <Button type="submit">Update Experience</Button>
+              <Button type="submit" disabled={loading} size={"sm"}>
+                {loading ? "Updating..." : "Update"}
+              </Button>
             </div>
           </form>
         </DialogContent>

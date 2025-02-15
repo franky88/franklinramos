@@ -19,6 +19,7 @@ import {
 } from "../ui/table";
 import { Trash2 } from "lucide-react";
 import UpdateCategory from "./UpdateCategory";
+import DeleteCategory from "./DeleteCategory";
 
 interface CategoryListProps {
   categories: Category[];
@@ -54,19 +55,19 @@ const CategoryList = ({
               </TableHeader>
               <TableBody>
                 {categories.map((cat) => (
-                  <TableRow key={cat.id}>
+                  <TableRow key={cat._id}>
                     <TableCell>
                       <div className="flex items-center justify-between">
                         <div>{cat.name}</div>
                         <div className="flex items-center gap-2">
                           <UpdateCategory
-                            id={cat.id}
-                            name={cat.name}
+                            category={cat}
                             updateCategoryList={updateCategoryData}
                           />
-                          <Button variant={"link"} size={"sm"}>
-                            <Trash2 className="text-red-500 w-4" />
-                          </Button>
+                          <DeleteCategory
+                            categoryId={cat._id}
+                            setCategories={updateCategoryData}
+                          />
                         </div>
                       </div>
                     </TableCell>

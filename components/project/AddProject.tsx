@@ -22,6 +22,7 @@ import {
 } from "../ui/select";
 import axiosInstance from "@/lib/axiosInstance";
 import { useMyToaster } from "@/utils/mytoast";
+import { Textarea } from "../ui/textarea";
 
 interface AddProjectProps {
   updateProjectList: () => void;
@@ -42,6 +43,7 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
     try {
       const response = await axiosInstance.get("/category");
       const data = response.data;
+      console.log("category data", data);
       setCategories(data.categories || []);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
@@ -55,23 +57,36 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
   }, [open]);
 
   const addPortfolio = async () => {
-    const response = await fetch("/api/portfolio/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, description, url, imageUrl, categoryId }),
+    // const response = await fetch("/api/portfolio/add", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ title, description, url, imageUrl, categoryId }),
+    // });
+
+    const response = await axiosInstance.post("/portfolio/add", {
+      title,
+      description,
+      url,
+      imageUrl,
+      categoryId,
     });
 
-    if (response.ok) {
+    console.log("response", response);
+
+    if (response.status === 201) {
       setTitle("");
       setDescription("");
       setUrl("");
-      setCategoryId(""); // Reset category
+      setCategoryId("");
       updateProjectList();
       setOpen(false);
       showToast("Created successfully!", "Project has been created", false);
     } else {
-      const errorData = await response.json();
-      showToast("Oh no! Something went wrong!", `${errorData.message}`, true);
+      showToast(
+        "Oh no! Something went wrong!",
+        `${response.data.message}`,
+        true
+      );
     }
   };
 
@@ -115,7 +130,7 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
               </Label>
               <Label className="flex flex-col gap-1">
                 Description
-                <Input
+                <Textarea
                   placeholder="Description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -146,7 +161,7 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
                   <SelectContent>
                     <SelectGroup>
                       {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id}>
+                        <SelectItem key={category._id} value={category._id}>
                           {category.name}
                         </SelectItem>
                       ))}

@@ -1,7 +1,8 @@
-import prisma from "@/lib/prisma";
-import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { getAuth } from "@clerk/nextjs/server";
 import { z } from "zod";
+import { connectDB } from "@/lib/db";
+import { Portfolio } from "@/models/schema";
 
 const portfolioSchema = z.object({
   id: z.string(),
@@ -14,14 +15,15 @@ const portfolioSchema = z.object({
 
 export async function PATCH(request: NextRequest) {
   try {
-    // Authenticate the user
-    const { userId } = getAuth(request);
+    await connectDB();
 
+    // Authenticate user
+    const { userId } = getAuth(request);
     if (!userId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    // Parse and validate the request body
+    // Parse and validate request body
     const body = await request.json();
     const parsedBody = portfolioSchema.safeParse(body);
 
@@ -32,17 +34,16 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    const { id, title, description, url, imageUrl, categoryId } =
-      parsedBody.data;
+    const { id, title, description, url, imageUrl, categoryId } = parsedBody.data;
 
-    // Check if the portfolio exists and belongs to the user
-    const portfolio = await prisma.portfolio.findUnique({ where: { id } });
-
+    // Check if portfolio exists
+    const portfolio = await Portfolio.findById(id);
     if (!portfolio) {
       return NextResponse.json({ message: "Portfolio not found" }, { status: 404 });
     }
 
-    if (portfolio.userId !== userId) {
+    // Ensure user owns the portfolio
+    if (portfolio.userId.toString() !== userId) {
       return NextResponse.json(
         { message: "Unauthorized to update this portfolio" },
         { status: 403 }
@@ -50,26 +51,25 @@ export async function PATCH(request: NextRequest) {
     }
 
     // Update the portfolio
-    const updatedPortfolio = await prisma.portfolio.update({
-      where: { id },
-      data: {
-        title: title ?? undefined,
-        description: description ?? undefined,
-        url: url ?? undefined,
-        imageUrl: imageUrl ?? "",
-        categoryId: categoryId ?? undefined,
+    const updatedPortfolio = await Portfolio.findByIdAndUpdate(
+      id,
+      {
+        title: title ?? portfolio.title,
+        description: description ?? portfolio.description,
+        url: url ?? portfolio.url,
+        imageUrl: imageUrl ?? portfolio.imageUrl,
+        categoryId: categoryId ?? portfolio.categoryId,
       },
-    });
+      { new: true }
+    );
 
     return NextResponse.json(updatedPortfolio, { status: 200 });
   } catch (error: any) {
     console.error("Error updating portfolio:", error);
 
-    const errorMessage =
-      process.env.NODE_ENV === "development"
-        ? error.message
-        : "Internal server error";
-
-    return NextResponse.json({ message: errorMessage }, { status: 500 });
+    return NextResponse.json(
+      { message: process.env.NODE_ENV === "development" ? error.message : "Internal server error" },
+      { status: 500 }
+    );
   }
 }

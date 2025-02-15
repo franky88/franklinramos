@@ -11,37 +11,38 @@ import { Trash2 } from "lucide-react";
 import { useMyToaster } from "@/utils/mytoast";
 import axiosInstance from "@/lib/axiosInstance";
 
-interface DeleteProjectProps {
-  productId: string;
-  setProjects: () => void;
+interface DeleteCategoryProps {
+  categoryId: string;
+  setCategories: () => void;
 }
 
-const DeleteProject: React.FC<DeleteProjectProps> = ({
-  productId,
-  setProjects,
+const DeleteCategory: React.FC<DeleteCategoryProps> = ({
+  categoryId,
+  setCategories,
 }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const showToast = useMyToaster();
 
-  const deletePortfolio = async () => {
+  const deleteCategory = async () => {
     try {
-      const res = await axiosInstance.delete("/portfolio/remove", {
-        data: { id: productId }, // Ensure 'id' matches API expectation
+      setLoading(true);
+      const res = await axiosInstance.delete("/category/remove", {
+        data: { id: categoryId },
       });
-
-      console.log("Response:", res);
-      setProjects();
+      setCategories();
       setOpen(false);
-      showToast("Deleted successfully!", "Project has been deleted", false);
+      showToast("Deleted successfully!", "Category has been deleted", false);
     } catch (error: any) {
-      console.error("Error deleting portfolio:", error);
-
+      console.error("Error deleting category:", error);
       const errorMessage =
         error.response?.data?.message ||
         "Something went wrong. Please try again.";
       setErrorMessage(errorMessage);
       showToast("Oh no! Something went wrong!", errorMessage, true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,16 +60,21 @@ const DeleteProject: React.FC<DeleteProjectProps> = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              Are you sure you want to delete this project?
+              Are you sure you want to delete this category?
             </DialogTitle>
             <DialogDescription>
-              This action will permanently delete the item.
+              This action will permanently delete the category.
             </DialogDescription>
           </DialogHeader>
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           <div className="flex justify-end gap-2 mt-4">
-            <Button onClick={deletePortfolio} size="sm" variant="destructive">
-              Yes
+            <Button
+              onClick={deleteCategory}
+              size="sm"
+              variant="destructive"
+              disabled={loading}
+            >
+              {loading ? "Deleting..." : "Yes"}
             </Button>
             <Button onClick={() => setOpen(false)} size="sm" variant="outline">
               No
@@ -80,4 +86,4 @@ const DeleteProject: React.FC<DeleteProjectProps> = ({
   );
 };
 
-export default DeleteProject;
+export default DeleteCategory;

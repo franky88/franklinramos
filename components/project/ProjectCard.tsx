@@ -4,26 +4,18 @@ import ProjectDetails from "./ProjectDetails";
 import Image from "next/image";
 
 interface ProjectCardProps {
-  title: string;
-  description: string;
-  url: string;
-  imageUrl: string | undefined;
-  categoryId: string;
+  project: Portfolio;
 }
 
-const ProjectCard = ({
-  title,
-  description,
-  url,
-  imageUrl,
-  categoryId,
-}: ProjectCardProps) => {
+const ProjectCard = ({ project }: ProjectCardProps) => {
   const [category, setCategory] = useState<string>("");
 
   const fetchCategory = async (categoryId: string) => {
     try {
       const response = await axiosInstance.get(`/category/${categoryId}`);
+      console.log("response", response);
       const data = response.data;
+      console.log("category name: ", data.category.name);
       setCategory(data.category.name);
     } catch (error) {
       console.error("Failed to fetch category:", error);
@@ -32,18 +24,18 @@ const ProjectCard = ({
   };
 
   useEffect(() => {
-    if (categoryId) {
-      fetchCategory(categoryId);
+    if (project.categoryId) {
+      fetchCategory(project.categoryId);
     }
-  }, [categoryId]);
+  }, [project.categoryId]);
 
   return (
     <>
       <div className="relative overflow-hidden group">
-        {imageUrl ? (
+        {project.imageUrl ? (
           <Image
-            src={imageUrl}
-            alt={title}
+            src={project.imageUrl}
+            alt={project.title}
             width={300}
             height={600}
             className="object-cover w-full h-full"
@@ -51,7 +43,7 @@ const ProjectCard = ({
         ) : (
           <Image
             src="/image-holder.png"
-            alt={title}
+            alt={project.title}
             width={300}
             height={300}
             className="object-cover w-full h-full"
@@ -62,17 +54,10 @@ const ProjectCard = ({
         <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-blue-500 via-blue-200/50 to-transparent text-black p-2 opacity-0 transition-opacity duration-1000 group-hover:opacity-100">
           <div className="flex items-start justify-between">
             <div className="flex flex-col gap-1">
-              <strong className="text-lg">{title}</strong>
-              <small>
-                {description} - {category}
-              </small>
+              <strong className="text-lg">{project.title.toUpperCase()}</strong>
+              <small>{category}</small>
             </div>
-            <ProjectDetails
-              title={title}
-              description={description}
-              url={url}
-              categoryName={category}
-            />
+            <ProjectDetails project={project} categoryName={category} />
           </div>
         </div>
       </div>

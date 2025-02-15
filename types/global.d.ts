@@ -1,10 +1,5 @@
-interface Category {
-  id: string;
-  name: string;
-}
-
 interface Portfolio {
-  id: number;
+  _id: string;
   title: string;
   description: string;
   url: string;
@@ -14,33 +9,30 @@ interface Portfolio {
 }
 
 interface User {
-  id: number;
+  _id: number;
   name: string;
   email: string;
 }
 
 interface Experience {
-  id: string;
+  _id: string;
   position: string;
   company: string;
   description: string;
   startDate: Date | null;
   endDate: Date | null;
-  isWithLine: boolean;
+  isPromoted: boolean;
   createdAt?: string;
 }
 
 interface Category {
-  id: string;
+  _id: string;
   name: string;
 }
 
 interface Skill {
-  id: string;
   _id: string;
   name: string;
   application: string;
-  from: Date | null;
-  to: Date | null;
   mastery: number
 }

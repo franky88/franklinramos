@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    await connectDB(); // Ensure database connection
+    await connectDB();
 
     const { userId } = getAuth(request);
     if (!userId) {
@@ -15,23 +15,21 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log("Received body:", body);
 
-    // Ensure mastery is a valid number
     const masteryNumber = Number(body.mastery);
     if (isNaN(masteryNumber)) {
       return NextResponse.json({ message: "Mastery must be a number" }, { status: 400 });
     }
 
-    // Create a new Skill document
     const skill = new Skill({
       name: body.name,
       application: body.application,
       from: new Date(body.from),
       to: new Date(body.to),
       mastery: masteryNumber,
-      userId: userId, // Reference to the user
+      userId: userId,
     });
 
-    await skill.save(); // Save to MongoDB
+    await skill.save();
 
     return NextResponse.json(skill, { status: 201 });
   } catch (error) {

@@ -1,11 +1,14 @@
-import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { connectDB } from "@/lib/db";
+import { Experience } from "@/models/schema";
 
 export async function POST(request: NextRequest) {
   try {
     // Authenticate the user
     const { userId } = getAuth(request);
+
+    console.log("user id", userId)
 
     if (!userId) {
       return NextResponse.json(
@@ -16,6 +19,8 @@ export async function POST(request: NextRequest) {
 
     // Parse the request body
     const body = await request.json();
+
+    console.log("response body", body)
 
     // Validate request body
     const requiredFields = [
@@ -35,28 +40,25 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Explicitly check for `isWithLine` (ensure it's a boolean)
-    if (typeof body.isWithLine !== "boolean") {
+    if (typeof body.isPromoted !== "boolean") {
       return NextResponse.json(
-        { message: "Invalid value for isWithLine" },
+        { message: "Invalid value for is promoted" },
         { status: 400 }
       );
     }
 
-    // Log request body for debugging
     console.log("Request body:", body);
 
-    // Create the portfolio and link it to the authenticated user
-    const experience = await prisma.experience.create({
-      data: {
-        position: body.position,
-        company: body.company,
-        description: body.description,
-        isWithLine: body.isWithLine,
-        startDate: new Date(body.startDate),
-        endDate: new Date(body.endDate),
-        userId: userId,
-      },
+    await connectDB();
+
+    const experience = await Experience.create({
+      position: body.position,
+      company: body.company,
+      description: body.description,
+      isPromoted: body.isPromoted,
+      startDate: new Date(body.startDate),
+      endDate: new Date(body.endDate),
+      userId: userId,
     });
 
     return NextResponse.json(experience, { status: 201 });

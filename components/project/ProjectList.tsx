@@ -28,13 +28,10 @@ const ProjectList = () => {
   const fetchProjects = async (categoryId: string | null = null) => {
     try {
       setLoading(true);
-      const queryParam = categoryId ? `?categoryId=${categoryId}` : "";
+      const queryParam =
+        categoryId && categoryId !== "all" ? `?categoryId=${categoryId}` : "";
       const res = await axiosInstance.get(`/portfolio${queryParam}`);
-      const data = res.data;
-
-      // console.log("Fetched Projects:", data.portfolio);
-
-      setProjects(data.portfolio || []);
+      setProjects(res.data.portfolio || []);
     } catch (error) {
       console.error("Error fetching projects:", error);
       setProjects([]);
@@ -49,13 +46,13 @@ const ProjectList = () => {
       const data = res.data;
 
       if (Array.isArray(data.categories)) {
-        setCategories([{ id: "all", name: "All" }, ...data.categories]);
+        setCategories([{ _id: "all", name: "All" }, ...data.categories]);
       } else {
-        setCategories([{ id: "all", name: "All" }]);
+        setCategories([{ _id: "all", name: "All" }]);
       }
     } catch (error) {
       console.error("Error fetching categories:", error);
-      setCategories([{ id: "all", name: "All" }]); // Fallback
+      setCategories([{ _id: "all", name: "All" }]); // Fallback
     }
   };
 
@@ -69,6 +66,8 @@ const ProjectList = () => {
     setSelectedCategory(category);
     fetchProjects(category === "all" ? null : category);
   };
+
+  const skeletonHeights = [200, 250, 300, 350];
 
   return (
     <div>
@@ -87,7 +86,7 @@ const ProjectList = () => {
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map((category) => (
-                    <SelectItem value={category.id} key={category.id}>
+                    <SelectItem value={category._id} key={category._id}>
                       {category.name}
                     </SelectItem>
                   ))}
@@ -120,36 +119,25 @@ const ProjectList = () => {
                   <div className="masonry-grid-item" key={index}>
                     <Skeleton
                       className={`h-${
-                        Math.random() * (400 - 175) + 175
-                      }px w-[350px] rounded-xl`}
+                        skeletonHeights[index % skeletonHeights.length]
+                      } w-[350px] rounded-xl`}
                     />
                   </div>
                 ))}
             </>
           ) : projects.length > 0 ? (
             projects.map((project) => (
-              <div key={project.id} className="masonry-grid-item">
-                <ProjectCard
-                  title={project.title}
-                  description={project.description}
-                  url={project.url}
-                  imageUrl={project.imageUrl}
-                  categoryId={project.categoryId}
-                />
+              <div key={project._id} className="masonry-grid-item">
+                <ProjectCard project={project} />
                 <SignedIn>
                   <div className="flex items-center mt-1 mb-5">
                     <UpdateProject
-                      id={project.id}
-                      title={project.title}
-                      description={project.description}
-                      url={project.url}
-                      imageUrl={project.imageUrl}
-                      categoryId={project.categoryId}
+                      portfolio={project}
                       updateProjectList={fetchProjects}
                     />
                     <DeleteProject
-                      productId={project.id}
-                      setProjects={fetchProjects}
+                      productId={project._id}
+                      setProjects={fetchProjects} // Fix prop name
                     />
                   </div>
                 </SignedIn>

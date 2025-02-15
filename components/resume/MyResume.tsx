@@ -131,7 +131,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 }}
               >
                 {skills?.map((skill) => (
-                  <Text key={skill.id} style={styles.textDetails}>
+                  <Text key={skill._id} style={styles.textDetails}>
                     {skill.name},
                   </Text>
                 ))}
@@ -144,7 +144,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <View style={styles.horizontalLine}></View>
               <View>
                 {experience.map((ex) => (
-                  <View key={ex.id}>
+                  <View key={ex._id}>
                     <View style={styles.textFlex}>
                       <View>
                         <Text style={[styles.textDetails]}>

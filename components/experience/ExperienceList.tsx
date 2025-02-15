@@ -20,13 +20,14 @@ import { useMyToaster } from "@/utils/mytoast";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "../ui/table";
 import { Card, CardContent, CardHeader } from "../ui/card";
+import UpdateSkill from "../skill/UpdateSkill";
+import DeleteSkill from "../skill/DeleteSkill";
 
 const ExperienceList = () => {
   const [experience, setExperience] = useState<Experience[]>([]);
@@ -44,7 +45,7 @@ const ExperienceList = () => {
       const response = await axiosInstance.get("/skill");
       const data = response.data;
       console.log("Fetching skills", data);
-      setSkills(data || []);
+      setSkills(data.skills || []);
     } catch (error) {
       showToast("Oh no! Something went wrong!", `Error: ${error}`, true);
     }
@@ -73,9 +74,9 @@ const ExperienceList = () => {
       <div>
         <div className="scrollable-grid">
           {experience.map((ex) => (
-            <div className="flex gap-2 items-start" key={ex.id}>
+            <div className="flex gap-2 items-start" key={ex._id}>
               <div className="text-blue-900">
-                {ex.isWithLine ? (
+                {ex.isPromoted ? (
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -102,7 +103,7 @@ const ExperienceList = () => {
                     </Tooltip>
                   </TooltipProvider>
                 )}
-                {ex.isWithLine ? <div className="vertical-line"></div> : false}
+                {ex.isPromoted ? <div className="vertical-line"></div> : false}
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center justify-between w-full">
@@ -117,17 +118,17 @@ const ExperienceList = () => {
                   <SignedIn>
                     <div className="float-right flex">
                       <UpdateExperience
-                        id={ex.id}
+                        _id={ex._id}
                         position={ex.position}
                         company={ex.company}
                         description={ex.description}
-                        isWithLine={ex.isWithLine}
+                        isPromoted={ex.isPromoted}
                         startDate={ex.startDate}
                         endDate={ex.endDate}
                         updateExperienceList={fetchExperience}
                       />
                       <DeleteExperience
-                        experienceId={ex.id}
+                        experienceId={ex._id}
                         updateExperienceList={fetchExperience}
                       />
                     </div>
@@ -170,29 +171,44 @@ const ExperienceList = () => {
                       <TableCell>
                         <div className="flex items-center justify-between">
                           <div className="flex flex-col">
-                            {skill.name}
+                            <div>{skill.name}</div>
+
                             <small className="text-slate-500">
                               (Application used: {skill.application})
                             </small>
                           </div>
-                          <div className="flex gap-1">
-                            {Array(skill.mastery)
-                              .fill(null)
-                              .map((_, index) => (
-                                <Star
-                                  key={`star-${skill._id}-${index}`} // Ensure unique keys for stars
-                                  className="w-4 text-yellow-500 hover:w-5 duration-300"
-                                  fill={"yellow"}
+                          <div className="flex gap-1 items-center">
+                            <div className="flex gap-1">
+                              {Array(skill.mastery)
+                                .fill(null)
+                                .map((_, index) => (
+                                  <Star
+                                    key={`star-${skill._id}-${index}`} // Ensure unique keys for stars
+                                    className="w-4 text-yellow-500 hover:w-5 duration-300"
+                                    fill={"yellow"}
+                                  />
+                                ))}
+                              {Array(10.0 - skill.mastery)
+                                .fill(null)
+                                .map((_, index) => (
+                                  <Star
+                                    key={`star-${skill._id}-${index}`} // Ensure unique keys for stars
+                                    className="w-4 text-yellow-500"
+                                  />
+                                ))}
+                            </div>
+                            <SignedIn>
+                              <div>
+                                <UpdateSkill
+                                  skill={skill}
+                                  updateSkillList={fetchSkills}
                                 />
-                              ))}
-                            {Array(10.0 - skill.mastery)
-                              .fill(null)
-                              .map((_, index) => (
-                                <Star
-                                  key={`star-${skill._id}-${index}`} // Ensure unique keys for stars
-                                  className="w-4 text-yellow-500"
+                                <DeleteSkill
+                                  skillId={skill._id}
+                                  updateSkillList={fetchSkills}
                                 />
-                              ))}
+                              </div>
+                            </SignedIn>
                           </div>
                         </div>
                       </TableCell>

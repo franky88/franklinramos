@@ -9,37 +9,38 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import axiosInstance from "@/lib/axiosInstance";
+import { useMyToaster } from "@/utils/mytoast";
 
 interface DeleteExperienceProps {
-  experienceId: string;
-  updateExperienceList: () => void;
+  skillId: string;
+  updateSkillList: () => void;
 }
 
-const DeleteExperience = ({
-  experienceId,
-  updateExperienceList,
-}: DeleteExperienceProps) => {
+const DeleteSkill = ({ skillId, updateSkillList }: DeleteExperienceProps) => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const showToast = useMyToaster();
 
   const deleteExperience = async () => {
     try {
-      const res = await axiosInstance.delete("/experience/remove", {
-        data: { id: experienceId },
+      setLoading(true);
+      const res = await axiosInstance.delete("/skill/remove", {
+        data: { id: skillId },
       });
 
       if (res.status !== 200) {
-        setErrorMessage(res.data.message || "Failed to delete experience");
+        setErrorMessage(res.data.message || "Failed to delete skill");
         return;
       }
-
-      console.log("response: ", res);
-
-      updateExperienceList();
+      updateSkillList();
       setOpen(false);
+      showToast("Deleted successfully!", "Skill deleted successfully.", false);
     } catch (error) {
-      console.error("Error deleting experience:", error);
       setErrorMessage("Something went wrong. Please try again.");
+      showToast("Deleted successfully!", `${errorMessage}`, true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,8 +70,9 @@ const DeleteExperience = ({
               onClick={deleteExperience}
               size={"sm"}
               variant={"destructive"}
+              disabled={loading}
             >
-              Yes
+              {loading ? "Deleting..." : "Yes"}
             </Button>
             <Button
               onClick={() => setOpen(false)}
@@ -86,4 +88,4 @@ const DeleteExperience = ({
   );
 };
 
-export default DeleteExperience;
+export default DeleteSkill;

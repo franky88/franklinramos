@@ -13,6 +13,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Plus } from "lucide-react";
 import { useMyToaster } from "@/utils/mytoast";
+import axiosInstance from "@/lib/axiosInstance";
 
 interface AddCategoryProps {
   updateCategoryList: () => void;
@@ -24,18 +25,19 @@ const AddCategory = ({ updateCategoryList }: AddCategoryProps) => {
   const showToast = useMyToaster();
 
   const addCategory = async () => {
-    const response = await fetch("/api/category", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name }),
+    const response = await axiosInstance.post("/category", {
+      name,
     });
-    if (response.ok) {
+
+    console.log("category response: ", response);
+
+    if (response.status === 201) {
       setName("");
       updateCategoryList();
       setIsOpen(false);
       showToast("Created successfully!", "Category has been created");
     } else {
-      const errorData = await response.json();
+      const errorData = await response.data;
       showToast(
         "Oh no! Something went wrong!",
         `Error: ${errorData.message}`,

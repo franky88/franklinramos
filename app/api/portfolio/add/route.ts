@@ -1,12 +1,12 @@
-import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
-import { NextRequest } from "next/server"; // Import NextRequest correctly
+import { NextRequest, NextResponse } from "next/server";
+import { connectDB } from "@/lib/db";
+import { Portfolio } from "@/models/schema";
 
-
-export async function POST(request: NextRequest) { // Change Request to NextRequest
+export async function POST(request: NextRequest): Promise<Response> {
   try {
-    // Authenticate the user
-    const { userId } = getAuth(request); // Now this should work correctly
+    await connectDB();
+    const { userId } = getAuth(request);
 
     if (!userId) {
       return new Response(JSON.stringify({ message: "Unauthorized" }), {
@@ -15,10 +15,7 @@ export async function POST(request: NextRequest) { // Change Request to NextRequ
       });
     }
 
-    // Parse the request body
-    const body = await request.json();
-
-    // Validate request body
+    const body: { title?: string; description?: string; url?: string; categoryId?: string } = await request.json();
     if (!body.title || !body.description || !body.url) {
       return new Response(
         JSON.stringify({ message: "Invalid request body" }),
@@ -28,16 +25,14 @@ export async function POST(request: NextRequest) { // Change Request to NextRequ
 
     console.log("Request body:", body);
 
-    // Create the portfolio and link it to the authenticated user
-    const portfolio = await prisma.portfolio.create({
-      data: {
-        title: body.title,
-        description: body.description,
-        url: body.url,
-        categoryId: body.categoryId,
-        userId: userId,
-      },
+    const portfolio = new Portfolio({
+      title: body.title,
+      description: body.description,
+      url: body.url,
+      categoryId: body.categoryId,
+      userId: userId,
     });
+    await portfolio.save();
 
     return new Response(JSON.stringify(portfolio), {
       status: 201,
@@ -45,7 +40,6 @@ export async function POST(request: NextRequest) { // Change Request to NextRequ
     });
   } catch (error) {
     console.error("Error creating portfolio:", error);
-
     return new Response(
       JSON.stringify({ message: "Internal server error" }),
       {

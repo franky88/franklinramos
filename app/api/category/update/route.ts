@@ -1,15 +1,17 @@
-import prisma from "@/lib/prisma";
+import { connectDB } from "@/lib/db";
+import { Category } from "@/models/schema";
 import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const categorySchema = z.object({
-    id: z.string(),
-    name: z.string().optional(),
-  });
+  id: z.string(),
+  name: z.string().optional(),
+});
 
 export async function PATCH(request: NextRequest) {
   try {
+    await connectDB();
     const { userId } = getAuth(request);
 
     if (!userId) {
@@ -26,22 +28,17 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    const { id, name  } = parsedBody.data;
+    const { id, name } = parsedBody.data;
 
-    const category = await prisma.category.findUnique({ where: { id } });
-
+    const category = await Category.findById(id);
     if (!category) {
       return NextResponse.json({ message: "Category not found" }, { status: 404 });
     }
 
-    const updatedCategory = await prisma.category.update({
-      where: { id },
-      data: {
-        name: name ?? undefined,
-      },
-    });
+    category.name = name ?? category.name;
+    await category.save();
 
-    return NextResponse.json(updatedCategory, { status: 200 });
+    return NextResponse.json(category, { status: 200 });
   } catch (error: any) {
     console.error("Error updating category:", error);
 

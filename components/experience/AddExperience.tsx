@@ -8,6 +8,7 @@ import { Label } from "../ui/label";
 import { Plus } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { useMyToaster } from "@/utils/mytoast";
+import axiosInstance from "@/lib/axiosInstance";
 
 interface AddExperienceProps {
   onExperienceAdded: () => void;
@@ -19,7 +20,7 @@ const AddExperience = ({ onExperienceAdded }: AddExperienceProps) => {
   const [company, setCompany] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [isWithLine, setIsWithLine] = useState(false);
+  const [isPromoted, setIsPromoted] = useState(false);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState<{ type: string; text: string } | null>(
     null
@@ -28,23 +29,22 @@ const AddExperience = ({ onExperienceAdded }: AddExperienceProps) => {
 
   const addExperience = async () => {
     try {
-      const response = await fetch("/api/experience/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          position,
-          description,
-          company,
-          startDate,
-          endDate,
-          isWithLine,
-        }),
+      const res = await axiosInstance.post("/experience/add", {
+        position,
+        description,
+        company,
+        startDate,
+        endDate,
+        isPromoted,
       });
 
-      if (!response.ok) {
-        // Handle response error
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to add experience");
+      if (res.status !== 201) {
+        showToast(
+          "Oh no! Something went wrong!",
+          `Error: ${res.data.message}`,
+          true
+        );
+        throw new Error(res.data.message || "Failed to add skill");
       }
 
       // Clear form on success
@@ -53,12 +53,13 @@ const AddExperience = ({ onExperienceAdded }: AddExperienceProps) => {
       setCompany("");
       setStartDate("");
       setEndDate("");
-      setIsWithLine(false);
+      setIsPromoted(false);
       onExperienceAdded();
       setOpen(false);
       showToast("Created successfully!", "Experience has been created", false);
+      console.log("response data", res);
     } catch (error: any) {
-      showToast("Oh no! Something went wrong", `${error.message}`, true);
+      showToast("Oh no! Something went wrong", `Error: ${error.message}`, true);
     }
   };
 
@@ -150,8 +151,8 @@ const AddExperience = ({ onExperienceAdded }: AddExperienceProps) => {
                 <Label className="flex items-center gap-2">
                   <Input
                     type="checkbox"
-                    checked={isWithLine}
-                    onChange={(e) => setIsWithLine(e.target.checked)}
+                    checked={isPromoted}
+                    onChange={(e) => setIsPromoted(e.target.checked)}
                     className="w-4 h-4"
                   />
                   <span>Promoted</span>

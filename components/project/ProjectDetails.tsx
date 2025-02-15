@@ -10,18 +10,11 @@ import {
 import { ArrowRight } from "lucide-react";
 
 interface ProjectDetailsProps {
-  title: string;
-  description: string;
-  url: string;
+  project: Portfolio;
   categoryName: string;
 }
 
-const ProjectDetails = ({
-  title,
-  description,
-  url,
-  categoryName,
-}: ProjectDetailsProps) => {
+const ProjectDetails = ({ project, categoryName }: ProjectDetailsProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -33,18 +26,16 @@ const ProjectDetails = ({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
+            <DialogTitle>{project.title}</DialogTitle>
           </DialogHeader>
-          <DialogDescription>
-            {description} - {categoryName}
-          </DialogDescription>
+          <DialogDescription>{categoryName}</DialogDescription>
           {categoryName === "videos" ? (
             <video width={500} height={500} controls>
-              <source src={url} type="video/mp4" />
+              <source src={project.url} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           ) : (
-            <img src={url} alt={title} />
+            <img src={project.url} alt={project.title} />
           )}
         </DialogContent>
       </Dialog>

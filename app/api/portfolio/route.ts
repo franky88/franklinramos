@@ -1,20 +1,17 @@
-import prisma from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { connectDB } from "@/lib/db";
+import { Portfolio } from "@/models/schema";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
+    await connectDB();
+    
     const { searchParams } = new URL(request.url);
     const categoryId = searchParams.get("categoryId");
 
     const portfolio = categoryId
-      ? await prisma.portfolio.findMany({
-          where: { categoryId: categoryId },
-        })
-      : await prisma.portfolio.findMany({
-        orderBy: {
-          createdAt: "desc",
-        }
-      });
+      ? await Portfolio.find({ categoryId }).sort({ createdAt: -1 })
+      : await Portfolio.find().sort({ createdAt: -1 });
 
     return NextResponse.json({ portfolio });
   } catch (error) {

@@ -1,7 +1,7 @@
 import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import { Experience } from "@/models/schema";
+import { Skill } from "@/models/schema";
 
 export async function DELETE(request: NextRequest) {
   try {
@@ -14,44 +14,39 @@ export async function DELETE(request: NextRequest) {
     const body = await request.json();
     const { id } = body;
 
-    console.log("experience ID: ", body)
-
     if (!id) {
       return NextResponse.json(
-        { message: "Experience ID is required" },
+        { message: "Skill ID is required" },
         { status: 400 }
       );
     }
-
-    // Connect to the database
     await connectDB();
 
-    // Check if the experience belongs to the authenticated user
-    const experience = await Experience.findById(id);
+    const skill = await Skill.findById(id);
 
-    if (!experience) {
+    if (!skill) {
       return NextResponse.json(
         { message: "Experience not found" },
         { status: 404 }
       );
     }
 
-    if (experience.userId.toString() !== userId) {
+    if (skill.userId.toString() !== userId) {
       return NextResponse.json(
-        { message: "Unauthorized to delete this experience" },
+        { message: "Unauthorized to delete this skill" },
         { status: 403 }
       );
     }
 
     // Delete the experience
-    await Experience.findByIdAndDelete(id);
+    await Skill.findByIdAndDelete(id);
 
     return NextResponse.json(
-      { message: "Experience deleted successfully" },
+      { message: "Skill deleted successfully" },
       { status: 200 }
     );
   } catch (error: any) {
-    console.error("Error deleting experience:", error);
+    console.error("Error deleting skill:", error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

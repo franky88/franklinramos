@@ -20,8 +20,6 @@ interface AddSkillProps {
 const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
   const [name, setName] = useState("");
   const [application, setApplication] = useState("");
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
   const [mastery, setMastery] = useState("");
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState<{ type: string; text: string } | null>(
@@ -34,8 +32,6 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
       const response = await axiosInstance.post("/skill/add", {
         name,
         application,
-        from,
-        to,
         mastery: Number(mastery),
       });
 
@@ -49,8 +45,6 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
       }
       setName("");
       setApplication("");
-      setFrom("");
-      setTo("");
       setMastery("");
       onSkillAdded();
       setOpen(false);
@@ -63,7 +57,7 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!name || !application || !from || !to || !mastery) {
+    if (!name || !application || !mastery) {
       setMessage({
         type: "error",
         text: "Please fill in all required fields.",
@@ -112,22 +106,6 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
                   placeholder="Application"
                   value={application}
                   onChange={(e) => setApplication(e.target.value)}
-                />
-              </Label>
-              <Label className="flex flex-col gap-1">
-                Date Started Using
-                <Input
-                  type="date"
-                  value={from}
-                  onChange={(e) => setFrom(e.target.value)}
-                />
-              </Label>
-              <Label className="flex flex-col gap-1">
-                Until
-                <Input
-                  type="date"
-                  value={to}
-                  onChange={(e) => setTo(e.target.value)}
                 />
               </Label>
               <Label className="flex flex-col gap-1">
