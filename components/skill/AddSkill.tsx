@@ -22,6 +22,7 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
   const [application, setApplication] = useState("");
   const [mastery, setMastery] = useState("");
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<{ type: string; text: string } | null>(
     null
   );
@@ -29,6 +30,7 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
 
   const addSkill = async () => {
     try {
+      setLoading(true);
       const response = await axiosInstance.post("/skill/add", {
         name,
         application,
@@ -51,6 +53,8 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
       showToast("Created successfully!", "Skill has been created", false);
     } catch (error: any) {
       showToast("Oh no! Something went wrong", `${error.message}`, true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -118,7 +122,9 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
                 />
               </Label>
               <div>
-                <Button type="submit">Add Skill</Button>
+                <Button type="submit" disabled={loading}>
+                  {loading ? "Creating..." : "Add Skill"}
+                </Button>
               </div>
             </form>
           </div>

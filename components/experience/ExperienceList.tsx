@@ -174,7 +174,7 @@ const ExperienceList = () => {
                             <div>{skill.name}</div>
 
                             <small className="text-slate-500">
-                              (Application used: {skill.application})
+                              (Application: {skill.application})
                             </small>
                           </div>
                           <div className="flex gap-1 items-center">

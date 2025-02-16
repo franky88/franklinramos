@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
 
-const MONGO_URL = process.env.MONGO_URL as string;
+let MONGO_URL = process.env.DATABASE_URL as string;
+let databaseName = "testdata"
+
+if (process.env.NODE_ENV === "production") {
+  MONGO_URL = process.env.MONGO_URL as string;
+  databaseName = 'myfile'
+}
+
 
 if (!MONGO_URL) {
   throw new Error("❌ MONGO_URL is not defined in environment variables.");
@@ -17,7 +24,7 @@ export async function connectDB() {
   if (!cached.promise) {
     console.log("🟡 Connecting to MongoDB...");
     cached.promise = mongoose.connect(MONGO_URL, {
-      dbName: "myfile",
+      dbName: databaseName,
     }).then((mongoose) => {
       console.log("✅ MongoDB Connected!");
       return mongoose;

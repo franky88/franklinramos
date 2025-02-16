@@ -1,7 +1,15 @@
 import axios, { AxiosInstance } from 'axios';
 
+let baseURL = "http://localhost:3000/api"
+
+if (process.env.NODE_ENV === "production") {
+    baseURL = 'https://franklinramos.vercel.app/api'
+} else {
+    baseURL = 'http://localhost:3000/api'
+}
+
 const axiosInstance: AxiosInstance = axios.create({
-    baseURL: 'https://franklinramos.vercel.app/api',
+    baseURL: baseURL,
     headers: {
       'Content-Type': 'application/json',
     },

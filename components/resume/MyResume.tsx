@@ -146,7 +146,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 {experience.map((ex) => (
                   <View key={ex._id}>
                     <View style={styles.textFlex}>
-                      <View>
+                      <View style={{ width: "120px" }}>
                         <Text style={[styles.textDetails]}>
                           {ex.startDate
                             ? new Date(ex.startDate).toLocaleString("en-US", {
@@ -183,7 +183,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                           }}
                         >
                           <Text style={styles.textSmall}>
-                            Task and Responsibilities:
+                            Tasks and Responsibilities:
                           </Text>
                           <View>
                             {ex.description?.split(", ").map((s, index) => (
