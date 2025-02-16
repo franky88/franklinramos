@@ -1,13 +1,11 @@
 import mongoose from "mongoose";
 
-let MONGO_URL = process.env.DATABASE_URL as string;
+let MONGO_URL = process.env.MONGO_URL as string;
 let databaseName = "testdata"
 
 if (process.env.NODE_ENV === "production") {
-  MONGO_URL = process.env.MONGO_URL as string;
   databaseName = 'myfile'
 }
-
 
 if (!MONGO_URL) {
   throw new Error("❌ MONGO_URL is not defined in environment variables.");

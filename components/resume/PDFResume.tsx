@@ -76,7 +76,7 @@ const PDFResume = () => {
                   document={
                     <MyResume experience={experience} skills={skills} />
                   }
-                  fileName="franklinramos.pdf"
+                  fileName={`Franklin_Ramos_${new Date().getFullYear()}_Resume.pdf`}
                 >
                   {({ loading }) => (
                     <Button
