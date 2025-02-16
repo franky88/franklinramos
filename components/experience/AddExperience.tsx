@@ -22,6 +22,7 @@ const AddExperience = ({ onExperienceAdded }: AddExperienceProps) => {
   const [endDate, setEndDate] = useState("");
   const [isPromoted, setIsPromoted] = useState(false);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<{ type: string; text: string } | null>(
     null
   );
@@ -29,6 +30,7 @@ const AddExperience = ({ onExperienceAdded }: AddExperienceProps) => {
 
   const addExperience = async () => {
     try {
+      setLoading(true);
       const res = await axiosInstance.post("/experience/add", {
         position,
         description,
@@ -60,6 +62,8 @@ const AddExperience = ({ onExperienceAdded }: AddExperienceProps) => {
       console.log("response data", res);
     } catch (error: any) {
       showToast("Oh no! Something went wrong", `Error: ${error.message}`, true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -159,7 +163,15 @@ const AddExperience = ({ onExperienceAdded }: AddExperienceProps) => {
                 </Label>
               </div>
               <div>
-                <Button type="submit">Add Experience</Button>
+                <Button type="submit" disabled={loading}>
+                  {loading ? (
+                    "Creating..."
+                  ) : (
+                    <>
+                      <Plus /> Experience
+                    </>
+                  )}
+                </Button>
               </div>
             </form>
           </div>
