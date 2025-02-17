@@ -17,8 +17,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "./ui/card";
+import axiosInstance from "@/lib/axiosInstance";
+import { useMyToaster } from "@/utils/mytoast";
 
-// Define the form schema with validation
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Invalid email address." }),
@@ -38,9 +39,23 @@ export function ContactForm() {
       message: "",
     },
   });
+  const showToast = useMyToaster();
 
-  const onSubmit = (values: FormValues) => {
-    console.log("Form Submitted:", values);
+  const onSubmit = async (values: FormValues) => {
+    try {
+      const response = await axiosInstance.post("/contact", values);
+      if (response.data.success) {
+        showToast("Sent successfully!", "Message sent successfully!", false);
+      } else {
+        showToast(
+          "Something went wrong!",
+          `Error: ${response.data.error}`,
+          true
+        );
+      }
+    } catch (error) {
+      showToast("Something went wrong!", "Please try again.", true);
+    }
   };
 
   return (
