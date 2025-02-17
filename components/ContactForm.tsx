@@ -19,6 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "./ui/card";
 import axiosInstance from "@/lib/axiosInstance";
 import { useMyToaster } from "@/utils/mytoast";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -40,12 +41,15 @@ export function ContactForm() {
     },
   });
   const showToast = useMyToaster();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = async (values: FormValues) => {
     try {
+      setLoading(true);
       const response = await axiosInstance.post("/contact", values);
       if (response.data.success) {
         showToast("Sent successfully!", "Message sent successfully!", false);
+        form.reset();
       } else {
         showToast(
           "Something went wrong!",
@@ -55,6 +59,8 @@ export function ContactForm() {
       }
     } catch (error) {
       showToast("Something went wrong!", "Please try again.", true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -115,7 +121,11 @@ export function ContactForm() {
             />
 
             {/* Submit Button */}
-            <Button type="submit">Send Message</Button>
+            <div className="flex gap-3 items-center justify-between">
+              <Button type="submit" disabled={loading}>
+                {loading ? "Sending..." : "Send Message"}
+              </Button>
+            </div>
           </form>
         </Form>
       </CardContent>
