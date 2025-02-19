@@ -7,37 +7,30 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { CircleCheck } from "lucide-react";
-import { ExperienceChart } from "./ExperienceChart";
 
 interface ExperienceDialogProps {
-  title: string;
-  description?: string;
-  startDate?: Date | null;
-  endDate?: Date | null;
+  experience: Experience;
 }
 
-const ExperienceDialog = ({
-  title,
-  description,
-  startDate,
-  endDate,
-}: ExperienceDialogProps) => {
+const ExperienceDialog = ({ experience }: ExperienceDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger className="flex items-start">
-        <strong className="text-xl text-blue-900 text-left">{title}</strong>
+        <strong className="text-xl text-blue-900 text-left">
+          {experience.position}
+        </strong>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            <strong className="text-xl">{title}</strong>
+            <strong className="text-xl">{experience.position}</strong>
           </DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-3">
           <div>
             <strong>Tasks and Responsibilities: </strong>
-            {description?.split(",").map((s, index) => (
+            {experience.description?.split(",").map((s, index) => (
               <span className="flex flex-col" key={index}>
                 <i className="flex items-start gap-3">
                   <CircleCheck className="w-4 text-green-900" />

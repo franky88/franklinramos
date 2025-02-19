@@ -108,12 +108,7 @@ const ExperienceList = () => {
               <div className="flex flex-col">
                 <div className="flex items-center justify-between w-full">
                   <div className="w-full">
-                    <ExperienceDialog
-                      title={ex.position.toUpperCase()}
-                      description={ex.description}
-                      startDate={ex.startDate}
-                      endDate={ex.endDate}
-                    />
+                    <ExperienceDialog experience={experience} />
                   </div>
                   <SignedIn>
                     <div className="float-right flex">

@@ -43,6 +43,7 @@ const UpdateProject = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const showToast = useMyToaster();
 
   const fetchCategories = async () => {
@@ -77,9 +78,10 @@ const UpdateProject = ({
     e.preventDefault();
 
     try {
+      setLoading(true);
       const response = await axiosInstance.patch("/portfolio/update", {
         id: portfolio._id,
-        ...formData, // This ensures all fields are included
+        ...formData,
       });
 
       if (response.status === 200) {
@@ -98,6 +100,8 @@ const UpdateProject = ({
     } catch (error) {
       console.error("Error updating portfolio:", error);
       setErrorMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -186,7 +190,9 @@ const UpdateProject = ({
               </Label>
             </div>
             <div>
-              <Button type="submit">Update Portfolio</Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? "Updating..." : "Update"}
+              </Button>
             </div>
           </form>
         </DialogContent>

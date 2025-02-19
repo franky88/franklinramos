@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import CategoryList from "../category/CategoryList";
+import UploadFile from "./UploadFile";
 
 const ProjectList = () => {
   const [projects, setProjects] = useState<Portfolio[]>([]);
@@ -101,6 +102,7 @@ const ProjectList = () => {
                 />
                 <AddCategory updateCategoryList={fetchCategories} />
                 <AddProject updateProjectList={fetchProjects} />
+                <UploadFile />
               </div>
             </SignedIn>
           </div>

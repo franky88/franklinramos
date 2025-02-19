@@ -21,9 +21,11 @@ const DeleteExperience = ({
 }: DeleteExperienceProps) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const deleteExperience = async () => {
     try {
+      setLoading(true);
       const res = await axiosInstance.delete("/experience/remove", {
         data: { id: experienceId },
       });
@@ -40,6 +42,8 @@ const DeleteExperience = ({
     } catch (error) {
       console.error("Error deleting experience:", error);
       setErrorMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,8 +73,9 @@ const DeleteExperience = ({
               onClick={deleteExperience}
               size={"sm"}
               variant={"destructive"}
+              disabled={loading}
             >
-              Yes
+              {loading ? "Deleting..." : "Yes"}
             </Button>
             <Button
               onClick={() => setOpen(false)}
