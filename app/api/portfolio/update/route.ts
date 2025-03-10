@@ -9,8 +9,10 @@ const portfolioSchema = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
   url: z.string().optional(),
-  imageUrl: z.string().optional(),
+  projectTypeId: z.string().optional(),
+  projectTypeName: z.string().optional(),
   categoryId: z.string().optional(),
+  categoryName: z.string().optional(),
 });
 
 export async function PATCH(request: NextRequest) {
@@ -30,7 +32,7 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    const { id, title, description, url, imageUrl, categoryId } = parsedBody.data;
+    const { id, title, description, url, projectTypeId, projectTypeName, categoryId, categoryName } = parsedBody.data;
 
     const portfolio = await Portfolio.findById(id);
     if (!portfolio) {
@@ -50,8 +52,10 @@ export async function PATCH(request: NextRequest) {
         title: title ?? portfolio.title,
         description: description ?? portfolio.description,
         url: url ?? portfolio.url,
-        imageUrl: imageUrl ?? portfolio.imageUrl,
+        projectTypeId: projectTypeId ?? portfolio.projectTypeId,
+        projectTypeName: projectTypeName ?? portfolio.projectTypeName,
         categoryId: categoryId ?? portfolio.categoryId,
+        categoryName: categoryName ?? portfolio.categoryName
       },
       { new: true }
     );

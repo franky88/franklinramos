@@ -24,27 +24,31 @@ import axiosInstance from "@/lib/axiosInstance";
 import { useMyToaster } from "@/utils/mytoast";
 import { Textarea } from "../ui/textarea";
 
-interface AddProjectProps {
+interface UploadProjectProps {
   updateProjectList: () => void;
 }
 
-const AddProject = ({ updateProjectList }: AddProjectProps) => {
+const UploadProject = ({ updateProjectList }: UploadProjectProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
-  const [categoryId, setCategoryId] = useState("");
-  const [projectTypeId, setProjectTypeId] = useState("");
-  const [categories, setCategories] = useState<Category[]>([]);
   const [projectTypes, setProjectTypes] = useState<ProjectType[]>([]);
+  const [projectTypeId, setProjectTypeId] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [categories, setCategories] = useState<Category[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [projectTypeName, setProjectTypeName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
   const showToast = useMyToaster();
 
-  // Fetch categories when the dialog opens
   const fetchCategories = async () => {
     try {
       const response = await axiosInstance.get("/category");
       const data = response.data;
+      console.log("category data", data);
       setCategories(data.categories || []);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
@@ -68,16 +72,65 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
     }
   }, [open]);
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(event.target.files?.[0] || null);
+  };
+
   const addPortfolio = async () => {
+    if (!file) {
+      setError("No file selected");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+
     try {
-      setLoading(true);
+      const res = await fetch(
+        `/api/sufy/upload?fileName=${encodeURIComponent(file.name)}`,
+        {
+          method: "PUT",
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`API Error: ${res.status} - ${res.statusText}`);
+      }
+
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Invalid JSON response from server");
+      }
+
+      const data = await res.json();
+      const url = data.url.split("?")[0];
+
+      if (!data.url) {
+        throw new Error("No upload URL received");
+      }
+
+      const uploadResponse = await fetch(data.url, {
+        method: "PUT",
+        body: file,
+        headers: {
+          "Content-Type": file.type || "application/octet-stream",
+        },
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error(`Upload failed: ${uploadResponse.statusText}`);
+      }
+      showToast("Successfully uploaded!", "FIle uploaded to the server", false);
+
       const response = await axiosInstance.post("/portfolio/add", {
         title,
         description,
-        url,
+        url: url,
+        projectTypeName: projectTypeName,
         projectTypeId,
         categoryId,
+        categoryName: categoryName,
       });
+
       if (response.status === 201) {
         setTitle("");
         setDescription("");
@@ -142,15 +195,20 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
               </Label>
               <Label className="flex flex-col gap-1">
                 URL
-                <Input
-                  placeholder="URL"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                />
+                <Input type="file" onChange={handleFileChange} />
+                {error && <p style={{ color: "red" }}>{error}</p>}
               </Label>
               <Label className="flex flex-col gap-1">
                 File Type
-                <Select onValueChange={(value) => setProjectTypeId(value)}>
+                <Select
+                  onValueChange={(value) => {
+                    const selectedType = projectTypes.find(
+                      (type) => type._id === value
+                    );
+                    setProjectTypeId(value);
+                    setProjectTypeName(selectedType?.name || "");
+                  }}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
@@ -167,7 +225,15 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
               </Label>
               <Label className="flex flex-col gap-1">
                 Category
-                <Select onValueChange={(value) => setCategoryId(value)}>
+                <Select
+                  onValueChange={(value) => {
+                    const selectedCategory = categories.find(
+                      (type) => type._id === value
+                    );
+                    setCategoryId(value);
+                    setCategoryName(selectedCategory?.name || "");
+                  }}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
@@ -201,4 +267,4 @@ const AddProject = ({ updateProjectList }: AddProjectProps) => {
   );
 };
 
-export default AddProject;
+export default UploadProject;

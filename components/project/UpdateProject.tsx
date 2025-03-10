@@ -35,7 +35,7 @@ const UpdateProject = ({
     title: portfolio.title,
     description: portfolio.description,
     url: portfolio.url,
-    imageUrl: portfolio.imageUrl,
+    projectTypeId: portfolio.projectTypeId,
     categoryId: portfolio.categoryId,
   });
 
@@ -43,6 +43,7 @@ const UpdateProject = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [fileType, setFileType] = useState<ProjectType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const showToast = useMyToaster();
 
@@ -50,8 +51,17 @@ const UpdateProject = ({
     try {
       const response = await axiosInstance.get("/category");
       const data = response.data;
-      console.log("Fetched categories:", data);
       setCategories(data.categories || []);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
+
+  const fetchFileType = async () => {
+    try {
+      const response = await axiosInstance.get("/type");
+      const data = response.data;
+      setFileType(data.projectType || []);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
     }
@@ -60,6 +70,7 @@ const UpdateProject = ({
   useEffect(() => {
     if (isOpen) {
       fetchCategories();
+      fetchFileType();
     }
   }, [isOpen]);
 
@@ -72,6 +83,10 @@ const UpdateProject = ({
 
   const handleCategoryChange = (value: string) => {
     setFormData((prev) => ({ ...prev, categoryId: value }));
+  };
+
+  const handleFileTypeChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, projectTypeId: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -145,7 +160,7 @@ const UpdateProject = ({
                 />
               </Label>
             </div>
-            <div>
+            {/* <div>
               <Label>
                 URL:
                 <Input
@@ -153,18 +168,30 @@ const UpdateProject = ({
                   name="url"
                   value={formData.url}
                   onChange={handleChange}
+                  disabled={true}
                 />
               </Label>
-            </div>
+            </div> */}
             <div>
-              <Label>
-                Image URL:
-                <Input
-                  type="text"
-                  name="imageUrl"
-                  value={formData.imageUrl || ""}
-                  onChange={handleChange}
-                />
+              <Label className="flex flex-col gap-1">
+                File type
+                <Select
+                  onValueChange={handleFileTypeChange}
+                  value={formData.projectTypeId}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {fileType.map((type) => (
+                        <SelectItem key={type._id} value={type._id}>
+                          {type.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </Label>
             </div>
             <div>

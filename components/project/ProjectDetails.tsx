@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 interface ProjectDetailsProps {
   project: Portfolio;
@@ -18,7 +19,11 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} variant={"link"}>
+      <Button
+        onClick={() => setOpen(true)}
+        variant={"outline"}
+        className="text-black"
+      >
         View <ArrowRight size={16} />
       </Button>
 
@@ -27,14 +32,31 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
           <DialogHeader>
             <DialogTitle>{project.title}</DialogTitle>
           </DialogHeader>
-          <DialogDescription>{project.category?.name}</DialogDescription>
-          {project.category?.name === "videos" ? (
-            <video width={500} height={500} controls>
+          <DialogDescription>{project.categoryName}</DialogDescription>
+          {project.projectTypeName == "images" && (
+            <Image
+              src={project.url}
+              alt={project.title}
+              width={300}
+              height={600}
+              className="object-cover w-full h-full"
+            />
+          )}
+
+          {project.projectTypeName == "pdf" && (
+            <iframe
+              src={project.url}
+              width={460}
+              height={700}
+              // className="object-cover w-full h-full"
+            />
+          )}
+
+          {project.projectTypeName == "videos" && (
+            <video controls className="object-cover w-full h-full">
               <source src={project.url} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-          ) : (
-            <img src={project.url} alt={project.title} />
           )}
         </DialogContent>
       </Dialog>

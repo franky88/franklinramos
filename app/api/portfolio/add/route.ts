@@ -15,7 +15,7 @@ export async function POST(request: NextRequest): Promise<Response> {
       });
     }
 
-    const body: { title?: string; description?: string; url?: string; categoryId?: string } = await request.json();
+    const body: { title?: string; description?: string; url?: string; projectTypeId?: string; projectTypeName: string; categoryId?: string; categoryName: string } = await request.json();
     if (!body.title || !body.description || !body.url) {
       return new Response(
         JSON.stringify({ message: "Invalid request body" }),
@@ -29,7 +29,10 @@ export async function POST(request: NextRequest): Promise<Response> {
       title: body.title,
       description: body.description,
       url: body.url,
+      projectTypeId: body.projectTypeId,
+      projectTypeName: body.projectTypeName,
       categoryId: body.categoryId,
+      categoryName: body.categoryName,
       userId: userId,
     });
     await portfolio.save();

@@ -3,8 +3,9 @@ interface Portfolio {
   title: string;
   description: string;
   url: string;
-  imageUrl?: string;
-  category?: Category;
+  projectTypeName?: string;
+  categoryName?: string;
+  projectTypeId: string;
   categoryId: string;
 }
 
@@ -26,6 +27,11 @@ interface Experience {
 }
 
 interface Category {
+  _id: string;
+  name: string;
+}
+
+interface ProjectType {
   _id: string;
   name: string;
 }

@@ -17,7 +17,6 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Trash2 } from "lucide-react";
 import UpdateCategory from "./UpdateCategory";
 import DeleteCategory from "./DeleteCategory";
 

@@ -28,26 +28,37 @@ import {
 import { Card, CardContent, CardHeader } from "../ui/card";
 import UpdateSkill from "../skill/UpdateSkill";
 import DeleteSkill from "../skill/DeleteSkill";
+import { Skeleton } from "../ui/skeleton";
 
 const ExperienceList = () => {
   const [experience, setExperience] = useState<Experience[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
+  const [loading, setLoading] = useState(false);
   const showToast = useMyToaster();
 
   const fetchExperience = async () => {
-    const response = await axiosInstance.get("/experience");
-    const data = await response.data;
-    setExperience(data.experience);
+    try {
+      setLoading(false);
+      const response = await axiosInstance.get("/experience");
+      const data = await response.data;
+      setExperience(data.experience);
+    } catch (error) {
+      showToast("Oh no! SOmething went wrong!", `Error: ${error}`, true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fetchSkills = async () => {
     try {
+      setLoading(true);
       const response = await axiosInstance.get("/skill");
       const data = response.data;
-      console.log("Fetching skills", data);
       setSkills(data.skills || []);
     } catch (error) {
       showToast("Oh no! Something went wrong!", `Error: ${error}`, true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,6 +66,24 @@ const ExperienceList = () => {
     fetchExperience();
     fetchSkills();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="scrollable-grid">
+        <div className="flex flex-col gap-2">
+          {Array(4)
+            .fill(null)
+            .map((_, index) => (
+              <div key={index} className="flex flex-col gap-3">
+                <Skeleton className="w-full h-7 rounded-md" />
+                <Skeleton className="w-3/4 h-5 rounded-md" />
+                <Skeleton className="w-full h-24 rounded-lg" />
+              </div>
+            ))}
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <div>

@@ -32,12 +32,28 @@ const CategorySchema = new Schema<ICategory>(
   { timestamps: true }
 );
 
+interface IProjectType extends Document {
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const ProjectTypeSchema = new Schema<IProjectType>(
+  {
+    name: { type: String, required: true },
+  },
+  { timestamps: true }
+);
+
+
 interface IPortfolio extends Document {
   title: string;
   description: string;
   url?: string;
-  imageUrl?: string;
+  projectTypeId?: mongoose.Types.ObjectId;
+  projectTypeName: string;
   categoryId?: mongoose.Types.ObjectId;
+  categoryName: string;
   userId?: mongoose.Types.ObjectId;
   createdAt: Date;
 }
@@ -47,8 +63,10 @@ const PortfolioSchema = new Schema<IPortfolio>(
     title: { type: String, required: true },
     description: { type: String, required: true },
     url: { type: String },
-    imageUrl: { type: String },
+    projectTypeId: { type: String, required: true },
+    projectTypeName: { type: String, required: true },
     categoryId: { type: String, required: true },
+    categoryName: { type: String, required: true },
     userId: { type: String, required: true },
   },
   { timestamps: { createdAt: true, updatedAt: false } } // createdAt only
@@ -99,6 +117,7 @@ const SkillSchema = new Schema<ISkill>(
 // Export models
 export const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
 export const Category = mongoose.models.Category || mongoose.model<ICategory>("Category", CategorySchema);
+export const ProjectType = mongoose.models.ProjectType || mongoose.model<IProjectType>("Projecttype", ProjectTypeSchema);
 export const Portfolio = mongoose.models.Portfolio || mongoose.model<IPortfolio>("Portfolio", PortfolioSchema);
 export const Experience = mongoose.models.Experience || mongoose.model<IExperience>("Experience", ExperienceSchema);
 export const Skill = mongoose.models.Skill || mongoose.model<ISkill>("Skill", SkillSchema);

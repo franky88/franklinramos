@@ -17,7 +17,7 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        console.log('Request:', config);
+        // console.log('Request:', config);
         return config;
     },
     (error) => {
@@ -27,7 +27,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
-        console.log('Axios response: -->', response)
+        // console.log('Axios response: -->', response)
         return response;
     },
     (error) => {
