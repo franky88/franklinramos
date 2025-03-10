@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import AboutMe from "@/components/AboutMe";
-import Projects from "@/components/project/Projects";
+// import Projects from "@/components/project/Projects";
 import Contact from "@/components/Contact";
 import Experience from "@/components/experience/Experience";
 import { ChevronLeft, Cog } from "lucide-react";
@@ -56,8 +56,8 @@ const Home = () => {
                   <p className={`${interBlack.className} text-[4em] -mt-8`}>
                     RAMOS
                   </p>
-                  <small className={`${interRegular.className} text-[2em]`}>
-                    Multimedia Artist
+                  <small className={`${interRegular.className} text-[1.2em]`}>
+                    Multimedia Artist / Web Developer
                   </small>
                 </div>
                 <div className="mt-4">
@@ -83,7 +83,7 @@ const Home = () => {
                         </span>
                       </button>
                     </div>
-                    <div
+                    {/* <div
                       className={`flex gap-1 hover:-translate-x-4 duration-300 ${
                         activeSection === "projects"
                           ? "-translate-x-4 text-blue-900 px-4 py-2"
@@ -102,7 +102,7 @@ const Home = () => {
                       >
                         <ChevronLeft className="w-4" />
                       </span>
-                    </div>
+                    </div> */}
                     <div
                       className={`flex gap-1 hover:-translate-x-4 duration-300 ${
                         activeSection === "experience"
@@ -176,7 +176,7 @@ const Home = () => {
                 transition={{ duration: 0.5 }}
               >
                 {activeSection === "about-me" && <AboutMe />}
-                {activeSection === "projects" && <Projects />}
+                {/* {activeSection === "projects" && <Projects />} */}
                 {activeSection === "experience" && <Experience />}
                 {activeSection === "contact" && <Contact />}
               </motion.div>

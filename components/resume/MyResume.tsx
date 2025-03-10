@@ -20,7 +20,10 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
             }}
           >
             <View>
-              <Image src={"/profile.jpg"} style={{ width: 100, height: 100 }} />
+              <Image
+                src={"/Frank_Profile.jpg"}
+                style={{ width: 100, height: 100 }}
+              />
             </View>
             <View style={[styles.textFlexCol]}>
               <View>
@@ -219,6 +222,136 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
             <View>
               <Text style={styles.textTitle}>EDUCATION</Text>
               <View style={styles.horizontalLine}></View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View style={{ width: "120px" }}>
+                  <Text style={styles.textDetails}>Nov 2018 to Mar 2018</Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Bachelor of Science in Office Administration (ETEEAP)
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Cebu Institute of Technology - University
+                  </Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View style={{ width: "120px" }}>
+                  <Text style={styles.textDetails}>Nov 2015 to Dec 2015</Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Computer Systems Servicing
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Iligan Cumputer Institute
+                  </Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View style={{ width: "120px" }}>
+                  <Text style={styles.textDetails}>Jun 2008 to Nov 2008</Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Professional Assistant 2D Animator
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Iligan Cumputer Institute
+                  </Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View style={{ width: "120px" }}>
+                  <Text style={styles.textDetails}>Jun 2007 to Mar 2008</Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Bachelor of Science in Business Administration Major in
+                    Financial Management
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Tagoloan Community College
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View>
+              <Text style={styles.textTitle}>
+                NATIONAL CERTIFICATION PASSED
+              </Text>
+              <View style={styles.horizontalLine}></View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View style={{ width: "120px" }}>
+                  <Text style={styles.textDetails}>2015</Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Computer Systems Servicing NC II
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View style={{ width: "120px" }}>
+                  <Text style={styles.textDetails}>2012</Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Visual Graphics Design NC III
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View style={{ width: "120px" }}>
+                  <Text style={styles.textDetails}>2012</Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>
+                    2D Animation (Digital) NC III
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View>
+              <Text style={styles.textTitle}>
+                NATIONAL TVET TRAINER CERTIFICATE (NTTC)
+              </Text>
+              <View style={styles.horizontalLine}></View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View style={{ width: "120px" }}>
+                  <Text style={styles.textDetails}>2012</Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Visual Graphics Design NC III
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View style={{ width: "120px" }}>
+                  <Text style={styles.textDetails}>2012</Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>
+                    2D Animation (Digital) NC III
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+              </View>
             </View>
           </View>
         </View>
