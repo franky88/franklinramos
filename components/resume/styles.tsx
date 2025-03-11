@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   textFlex: {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "space-between",
     gap: 30,
   },
   textFlexCol: {

@@ -149,25 +149,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 {experience.map((ex) => (
                   <View key={ex._id}>
                     <View style={styles.textFlex}>
-                      <View style={{ width: "120px" }}>
-                        <Text style={[styles.textDetails]}>
-                          {ex.startDate
-                            ? new Date(ex.startDate).toLocaleString("en-US", {
-                                month: "short",
-                              }) +
-                              " " +
-                              new Date(ex.startDate).getUTCFullYear()
-                            : "N/A"}{" "}
-                          to{" "}
-                          {ex.endDate
-                            ? new Date(ex.endDate).toLocaleString("en-US", {
-                                month: "short",
-                              }) +
-                              " " +
-                              new Date(ex.endDate).getUTCFullYear()
-                            : "N/A"}
-                        </Text>
-                      </View>
                       <View
                         style={{ marginBottom: 10, display: "flex", gap: 5 }}
                       >
@@ -200,6 +181,25 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                           </View>
                         </View>
                       </View>
+                      <View>
+                        <Text style={[styles.textDetails]}>
+                          {ex.startDate
+                            ? new Date(ex.startDate).toLocaleString("en-US", {
+                                month: "short",
+                              }) +
+                              " " +
+                              new Date(ex.startDate).getUTCFullYear()
+                            : "N/A"}{" "}
+                          to{" "}
+                          {ex.endDate
+                            ? new Date(ex.endDate).toLocaleString("en-US", {
+                                month: "short",
+                              }) +
+                              " " +
+                              new Date(ex.endDate).getUTCFullYear()
+                            : "N/A"}
+                        </Text>
+                      </View>
                     </View>
                     <View
                       style={{
@@ -223,9 +223,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <Text style={styles.textTitle}>EDUCATION</Text>
               <View style={styles.horizontalLine}></View>
               <View style={[styles.textFlex, { marginBottom: 10 }]}>
-                <View style={{ width: "120px" }}>
-                  <Text style={styles.textDetails}>Nov 2018 to Mar 2018</Text>
-                </View>
                 <View>
                   <Text style={styles.textDetails}>
                     Bachelor of Science in Office Administration (ETEEAP)
@@ -234,11 +231,11 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     Cebu Institute of Technology - University
                   </Text>
                 </View>
+                <View>
+                  <Text style={styles.textDetails}>Nov 2018 to Mar 2018</Text>
+                </View>
               </View>
               <View style={[styles.textFlex, { marginBottom: 10 }]}>
-                <View style={{ width: "120px" }}>
-                  <Text style={styles.textDetails}>Nov 2015 to Dec 2015</Text>
-                </View>
                 <View>
                   <Text style={styles.textDetails}>
                     Computer Systems Servicing
@@ -247,11 +244,11 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     Iligan Cumputer Institute
                   </Text>
                 </View>
+                <View>
+                  <Text style={styles.textDetails}>Nov 2015 to Dec 2015</Text>
+                </View>
               </View>
               <View style={[styles.textFlex, { marginBottom: 10 }]}>
-                <View style={{ width: "120px" }}>
-                  <Text style={styles.textDetails}>Jun 2008 to Nov 2008</Text>
-                </View>
                 <View>
                   <Text style={styles.textDetails}>
                     Professional Assistant 2D Animator
@@ -260,11 +257,11 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     Iligan Cumputer Institute
                   </Text>
                 </View>
+                <View>
+                  <Text style={styles.textDetails}>Jun 2008 to Nov 2008</Text>
+                </View>
               </View>
               <View style={[styles.textFlex, { marginBottom: 10 }]}>
-                <View style={{ width: "120px" }}>
-                  <Text style={styles.textDetails}>Jun 2007 to Mar 2008</Text>
-                </View>
                 <View>
                   <Text style={styles.textDetails}>
                     Bachelor of Science in Business Administration Major in
@@ -274,6 +271,9 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     Tagoloan Community College
                   </Text>
                 </View>
+                <View>
+                  <Text style={styles.textDetails}>Jun 2007 to Mar 2008</Text>
+                </View>
               </View>
             </View>
             <View>
@@ -282,9 +282,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               </Text>
               <View style={styles.horizontalLine}></View>
               <View style={[styles.textFlex, { marginBottom: 10 }]}>
-                <View style={{ width: "120px" }}>
-                  <Text style={styles.textDetails}>2015</Text>
-                </View>
                 <View>
                   <Text style={styles.textDetails}>
                     Computer Systems Servicing NC II
@@ -293,11 +290,11 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     Technical Education and Skills Development Authority (TESDA)
                   </Text>
                 </View>
+                <View>
+                  <Text style={styles.textDetails}>2015</Text>
+                </View>
               </View>
               <View style={[styles.textFlex, { marginBottom: 10 }]}>
-                <View style={{ width: "120px" }}>
-                  <Text style={styles.textDetails}>2012</Text>
-                </View>
                 <View>
                   <Text style={styles.textDetails}>
                     Visual Graphics Design NC III
@@ -306,11 +303,11 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     Technical Education and Skills Development Authority (TESDA)
                   </Text>
                 </View>
-              </View>
-              <View style={[styles.textFlex, { marginBottom: 10 }]}>
-                <View style={{ width: "120px" }}>
+                <View>
                   <Text style={styles.textDetails}>2012</Text>
                 </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
                 <View>
                   <Text style={styles.textDetails}>
                     2D Animation (Digital) NC III
@@ -318,6 +315,9 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Technical Education and Skills Development Authority (TESDA)
                   </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2012</Text>
                 </View>
               </View>
             </View>
@@ -327,9 +327,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               </Text>
               <View style={styles.horizontalLine}></View>
               <View style={[styles.textFlex, { marginBottom: 10 }]}>
-                <View style={{ width: "120px" }}>
-                  <Text style={styles.textDetails}>2012</Text>
-                </View>
                 <View>
                   <Text style={styles.textDetails}>
                     Visual Graphics Design NC III
@@ -338,11 +335,11 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     Technical Education and Skills Development Authority (TESDA)
                   </Text>
                 </View>
-              </View>
-              <View style={[styles.textFlex, { marginBottom: 10 }]}>
-                <View style={{ width: "120px" }}>
+                <View>
                   <Text style={styles.textDetails}>2012</Text>
                 </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
                 <View>
                   <Text style={styles.textDetails}>
                     2D Animation (Digital) NC III
@@ -350,6 +347,9 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Technical Education and Skills Development Authority (TESDA)
                   </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2012</Text>
                 </View>
               </View>
             </View>
