@@ -353,6 +353,75 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 </View>
               </View>
             </View>
+            <View>
+              <Text style={styles.textTitle}>
+                AWARDS AND RECOGNITIONS RECEIVED
+              </Text>
+              <View style={styles.horizontalLine}></View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Excellent Performance Award
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Fligno / AdonPH Inc.
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2021</Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Most Outstanding Faculty of the Year
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Iligan Computer Institute
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2014</Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Best in Attendance Faculty
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Iligan Computer Institute
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2014</Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View>
+                  <Text style={styles.textDetails}>Most Punctual Faculty</Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Iligan Computer Institute
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2014</Text>
+                </View>
+              </View>
+              <View style={[styles.textFlex, { marginBottom: 10 }]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Most Outstanding Faculty of the Year
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Iligan Computer Institute
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2011</Text>
+                </View>
+              </View>
+            </View>
           </View>
         </View>
       </Page>
