@@ -429,7 +429,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                   </Text>
                 </View>
                 <View>
-                  <Text style={styles.textDetails}>Nov 2018 to Mar 2018</Text>
+                  <Text style={styles.textDetails}>Mar 2018 to Nov 2018</Text>
                 </View>
               </View>
               <View style={[styles.flexDetails]}>
