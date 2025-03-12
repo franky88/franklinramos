@@ -140,7 +140,16 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 }}
               >
                 <View>
-                  <Text style={styles.textDetails}>LANGUAGES</Text>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={styles.textDetails}>LANGUAGES</Text>
+                    <Text style={styles.textDetails}>LVL</Text>
+                  </View>
                   <View
                     style={{
                       borderBottomColor: "#999",
@@ -158,10 +167,11 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                             display: "flex",
                             flexDirection: "row",
                             justifyContent: "space-between",
+                            gap: 5,
                           }}
                         >
                           <Text style={[styles.textMuted, styles.textSmall]}>
-                            {skill.name.toUpperCase()}
+                            {skill.name}
                           </Text>
                           <View
                             style={{
@@ -175,7 +185,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                               .map((_, index) => (
                                 <Text
                                   key={`star-${skill._id}-${index}`}
-                                  style={{ color: "yellow" }}
+                                  style={{ color: "green" }}
                                 >
                                   *
                                 </Text>
@@ -185,7 +195,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                               .map((_, index) => (
                                 <Text
                                   key={`star-${skill._id}-${index}`}
-                                  style={{ color: "gray" }}
+                                  style={{ color: "#999" }}
                                 >
                                   *
                                 </Text>
@@ -196,7 +206,16 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                   )}
                 </View>
                 <View>
-                  <Text style={styles.textDetails}>SKILLS</Text>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={styles.textDetails}>SKILLS</Text>
+                    <Text style={styles.textDetails}>LVL</Text>
+                  </View>
                   <View
                     style={{
                       borderBottomColor: "#999",
@@ -217,7 +236,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                           }}
                         >
                           <Text style={[styles.textMuted, styles.textSmall]}>
-                            {skill.name.toUpperCase()}
+                            {skill.name}
                           </Text>
                           <View
                             style={{
@@ -231,7 +250,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                               .map((_, index) => (
                                 <Text
                                   key={`star-${skill._id}-${index}`}
-                                  style={{ color: "yellow" }}
+                                  style={{ color: "green" }}
                                 >
                                   *
                                 </Text>
@@ -241,7 +260,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                               .map((_, index) => (
                                 <Text
                                   key={`star-${skill._id}-${index}`}
-                                  style={{ color: "gray" }}
+                                  style={{ color: "#999" }}
                                 >
                                   *
                                 </Text>
@@ -252,7 +271,16 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                   )}
                 </View>
                 <View>
-                  <Text style={styles.textDetails}>APPLICATIONS</Text>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={styles.textDetails}>APPLICATIONS</Text>
+                    <Text style={styles.textDetails}>LVL</Text>
+                  </View>
                   <View
                     style={{
                       borderBottomColor: "#999",
@@ -273,7 +301,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                           }}
                         >
                           <Text style={[styles.textMuted, styles.textSmall]}>
-                            {skill.name.toUpperCase()}
+                            {skill.name}
                           </Text>
                           <View
                             style={{
@@ -287,7 +315,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                               .map((_, index) => (
                                 <Text
                                   key={`star-${skill._id}-${index}`}
-                                  style={{ color: "yellow" }}
+                                  style={{ color: "green" }}
                                 >
                                   *
                                 </Text>
@@ -297,7 +325,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                               .map((_, index) => (
                                 <Text
                                   key={`star-${skill._id}-${index}`}
-                                  style={{ color: "gray" }}
+                                  style={{ color: "#999" }}
                                 >
                                   *
                                 </Text>
