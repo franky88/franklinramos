@@ -76,7 +76,7 @@ const PDFResume = () => {
                   document={
                     <MyResume experience={experience} skills={skills} />
                   }
-                  fileName={`Franklin_Ramos_${new Date().getFullYear()}_Resume.pdf`}
+                  fileName={`Franklin_Ramos_${new Date().getFullYear()}_curriculum_vitae.pdf`}
                 >
                   {({ loading }) => (
                     <Button
@@ -87,7 +87,7 @@ const PDFResume = () => {
                         "Loading document..."
                       ) : (
                         <>
-                          <Download /> Resume
+                          <Download /> Curriculum Vitae
                         </>
                       )}
                     </Button>

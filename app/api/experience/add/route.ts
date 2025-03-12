@@ -5,7 +5,6 @@ import { Experience } from "@/models/schema";
 
 export async function POST(request: NextRequest) {
   try {
-    // Authenticate the user
     const { userId } = getAuth(request);
 
     console.log("user id", userId)
@@ -16,19 +15,13 @@ export async function POST(request: NextRequest) {
         { status: 401 }
       );
     }
-
-    // Parse the request body
     const body = await request.json();
 
-    console.log("response body", body)
-
-    // Validate request body
     const requiredFields = [
       "position",
       "company",
       "description",
       "startDate",
-      "endDate",
     ];
 
     for (const field of requiredFields) {
@@ -46,8 +39,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-
-    console.log("Request body:", body);
 
     await connectDB();
 

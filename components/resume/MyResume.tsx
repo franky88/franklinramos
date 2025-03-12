@@ -1,6 +1,5 @@
 import { Document, Page, Text, View, Link, Image } from "@react-pdf/renderer";
 import styles from "./styles";
-import { Star } from "lucide-react";
 
 interface MyResumeProps {
   experience: Experience[];
@@ -29,7 +28,12 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
             <View>
               <Image
                 src={"/profile_image_old.png"}
-                style={{ width: 100, height: 100 }}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 10,
+                  backgroundColor: "white",
+                }}
               />
             </View>
             <View style={[styles.textFlexCol]}>
