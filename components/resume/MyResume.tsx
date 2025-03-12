@@ -28,7 +28,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
           >
             <View>
               <Image
-                src={"/Frank_Profile.jpg"}
+                src={"/profile_image_old.png"}
                 style={{ width: 100, height: 100 }}
               />
             </View>

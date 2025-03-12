@@ -23,7 +23,7 @@ const AboutMe = () => {
         <div className="text-left">
           <h2 className={`${interBlack.className} text-[3em]`}>About me</h2>
           <Image
-            src="/profile.jpg"
+            src="/profile_image.png"
             width={350}
             height={350}
             alt="profile image"
