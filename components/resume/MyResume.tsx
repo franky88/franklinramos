@@ -133,7 +133,9 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
 
         <View style={[styles.section, { display: "flex", gap: 20 }]}>
           <View style={[styles.textFlex]}>
-            <View style={{ width: "30%" }}>
+            <View
+              style={{ width: "30%", backgroundColor: "#f0f0f0", padding: 5 }}
+            >
               <Text style={styles.textTitle}>SKILLS AND SOFTSKILLS</Text>
               <View style={styles.horizontalLine}></View>
               <View
@@ -341,7 +343,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 </View>
               </View>
             </View>
-            <View style={{ width: "70%" }}>
+            <View style={{ width: "70%", padding: 5 }}>
               <Text style={styles.textTitle}>WORK EXPERIENCE</Text>
               <View style={styles.horizontalLine}></View>
               {experience.map((ex) => (
