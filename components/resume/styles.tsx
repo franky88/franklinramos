@@ -48,8 +48,7 @@ const styles = StyleSheet.create({
   textFlex: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 30,
+    gap: 20,
   },
   textFlexCol: {
     display: "flex",
@@ -62,6 +61,12 @@ const styles = StyleSheet.create({
     borderBottomStyle: "solid",
     marginBottom: 5,
     marginTop: 2,
+  },
+  flexDetails: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
   },
 });
 

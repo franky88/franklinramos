@@ -23,8 +23,7 @@ export async function POST(request: NextRequest) {
     const skill = new Skill({
       name: body.name,
       application: body.application,
-      from: new Date(body.from),
-      to: new Date(body.to),
+      skillType: body.skillType,
       mastery: masteryNumber,
       userId: userId,
     });

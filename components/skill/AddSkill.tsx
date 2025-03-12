@@ -12,6 +12,14 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import axiosInstance from "@/lib/axiosInstance";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 interface AddSkillProps {
   onSkillAdded: () => void;
@@ -21,6 +29,7 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
   const [name, setName] = useState("");
   const [application, setApplication] = useState("");
   const [mastery, setMastery] = useState("");
+  const [skillType, setSkillType] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<{ type: string; text: string } | null>(
@@ -34,6 +43,7 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
       const response = await axiosInstance.post("/skill/add", {
         name,
         application,
+        skillType,
         mastery: Number(mastery),
       });
 
@@ -48,6 +58,7 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
       setName("");
       setApplication("");
       setMastery("");
+      setSkillType("");
       onSkillAdded();
       setOpen(false);
       showToast("Created successfully!", "Skill has been created", false);
@@ -120,6 +131,21 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
                   value={mastery}
                   onChange={(e) => setMastery(e.target.value)}
                 />
+              </Label>
+              <Label className="flex flex-col gap-1">
+                Skill Type
+                <Select onValueChange={(value) => setSkillType(value)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a skill type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="Languages">Languages</SelectItem>
+                      <SelectItem value="Applications">Applications</SelectItem>
+                      <SelectItem value="Skills">Skills</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </Label>
               <div>
                 <Button type="submit" disabled={loading}>

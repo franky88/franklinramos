@@ -41,4 +41,5 @@ interface Skill {
   name: string;
   application: string;
   mastery: number
+  skillType: string;
 }

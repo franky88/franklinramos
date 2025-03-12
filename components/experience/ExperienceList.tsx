@@ -207,7 +207,7 @@ const ExperienceList = () => {
                                 .fill(null)
                                 .map((_, index) => (
                                   <Star
-                                    key={`star-${skill._id}-${index}`} // Ensure unique keys for stars
+                                    key={`star-${skill._id}-${index}`}
                                     className="w-4 text-yellow-500 hover:w-5 duration-300"
                                     fill={"yellow"}
                                   />
@@ -216,7 +216,7 @@ const ExperienceList = () => {
                                 .fill(null)
                                 .map((_, index) => (
                                   <Star
-                                    key={`star-${skill._id}-${index}`} // Ensure unique keys for stars
+                                    key={`star-${skill._id}-${index}`}
                                     className="w-4 text-yellow-500"
                                   />
                                 ))}

@@ -100,6 +100,7 @@ interface ISkill extends Document {
   name: string;
   application: string;
   mastery: number;
+  skillType: "Languages" | "Applications" | "Skills";
   userId?: mongoose.Types.ObjectId;
   createdAt: Date;
 }
@@ -109,6 +110,11 @@ const SkillSchema = new Schema<ISkill>(
     name: { type: String, required: true },
     application: { type: String, required: true },
     mastery: { type: Number, required: true },
+    skillType: {
+      type: String,
+      required: true,
+      enum: ["Languages", "Applications", "Skills"],
+    },
     userId: { type: String, required: true },
   },
   { timestamps: { createdAt: true, updatedAt: false } }

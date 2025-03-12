@@ -8,7 +8,8 @@ const skillSchema = z.object({
   _id: z.string(),
   name: z.string().optional(),
   application: z.string().optional(),
-  mastery: z.number().optional()
+  mastery: z.number().optional(),
+  skillType: z.string().optional()
 });
 
 export async function PATCH(request: NextRequest) {
@@ -28,7 +29,7 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    const { _id, name, application, mastery } = parsedBody.data;
+    const { _id, name, application, mastery, skillType } = parsedBody.data;
 
     const skill = await Skill.findById(_id);
     if (!skill) {
@@ -48,6 +49,7 @@ export async function PATCH(request: NextRequest) {
         name: name ?? skill.name,
         application: application ?? skill.application,
         mastery: mastery ?? skill.mastery,
+        skillType: skillType ?? skill.skillType
       },
       { new: true }
     );

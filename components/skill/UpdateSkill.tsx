@@ -12,6 +12,14 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import axiosInstance from "@/lib/axiosInstance";
 import { useMyToaster } from "@/utils/mytoast";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 interface UpdateExperienceProps {
   skill: Skill;
@@ -27,8 +35,13 @@ const UpdateSkill = ({ skill, updateSkillList }: UpdateExperienceProps) => {
     name: skill.name,
     application: skill.application,
     mastery: skill.mastery,
+    skillType: skill.skillType,
   });
   const showToast = useMyToaster();
+
+  const handleSkillTypeChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, skillType: value }));
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -47,6 +60,7 @@ const UpdateSkill = ({ skill, updateSkillList }: UpdateExperienceProps) => {
         name: formData.name,
         application: formData.application,
         mastery: Number(formData.mastery),
+        skillType: formData.skillType,
       });
 
       if (res.status === 200) {
@@ -113,6 +127,26 @@ const UpdateSkill = ({ skill, updateSkillList }: UpdateExperienceProps) => {
                   value={formData.mastery}
                   onChange={handleChange}
                 />
+              </Label>
+            </div>
+            <div>
+              <Label className="flex flex-col gap-1">
+                Skill Type
+                <Select
+                  onValueChange={handleSkillTypeChange}
+                  value={formData.skillType}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a skill type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="Languages">Languages</SelectItem>
+                      <SelectItem value="Applications">Applications</SelectItem>
+                      <SelectItem value="Skills">Skills</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </Label>
             </div>
             <div>
