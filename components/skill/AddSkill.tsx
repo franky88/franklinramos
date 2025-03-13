@@ -40,11 +40,23 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
   const addSkill = async () => {
     try {
       setLoading(true);
+
+      const masteryValue = Number(mastery);
+
+      if (isNaN(masteryValue) || masteryValue < 1 || masteryValue > 10) {
+        showToast(
+          "Invalid mastery value",
+          "Mastery must be a number between 1 and 10.",
+          true
+        );
+        return;
+      }
+
       const response = await axiosInstance.post("/skill/add", {
         name,
         application,
         skillType,
-        mastery: Number(mastery),
+        mastery: masteryValue,
       });
 
       if (response.status !== 201) {
@@ -55,6 +67,8 @@ const AddSkill = ({ onSkillAdded }: AddSkillProps) => {
         );
         throw new Error(response.data.message || "Failed to add skill");
       }
+
+      // Reset form fields
       setName("");
       setApplication("");
       setMastery("");

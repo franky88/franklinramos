@@ -14,7 +14,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
           style={[
             styles.section,
             styles.sectionBorder,
-            { backgroundColor: "#f0f0f0" },
+            { backgroundColor: "#e0ebff" },
           ]}
         >
           <View

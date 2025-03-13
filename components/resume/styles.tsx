@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   },
   section: {
     padding: 20,
-    backgroundColor: "#fff",
     borderRadius: 0,
   },
   sectionBorder: {

@@ -55,11 +55,23 @@ const UpdateSkill = ({ skill, updateSkillList }: UpdateExperienceProps) => {
 
     try {
       setLoading(true);
+
+      const masteryValue = Number(formData.mastery);
+
+      if (isNaN(masteryValue) || masteryValue < 1 || masteryValue > 10) {
+        showToast(
+          "Invalid mastery value",
+          "Mastery must be a number between 1 and 10.",
+          true
+        );
+        return;
+      }
+
       const res = await axiosInstance.patch("/skill/update", {
         _id: skill._id,
         name: formData.name,
         application: formData.application,
-        mastery: Number(formData.mastery),
+        mastery: masteryValue,
         skillType: formData.skillType,
       });
 

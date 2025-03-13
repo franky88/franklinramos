@@ -50,10 +50,15 @@ const Home = () => {
               </div>
               <div>
                 <div className="flex flex-col items-end">
-                  <p className={`${interBlack.className} text-[4em]`}>
+                  <p
+                    className={`${interBlack.className} text-[4em] bg-gradient-to-r from-[#1E7FA9] to-[#11DF97] bg-clip-text text-transparent`}
+                  >
                     FRANKLIN
                   </p>
-                  <p className={`${interBlack.className} text-[4em] -mt-8`}>
+
+                  <p
+                    className={`${interBlack.className} text-[4em] -mt-8 bg-gradient-to-r from-[#1E7FA9] to-[#11DF97] bg-clip-text text-transparent`}
+                  >
                     RAMOS
                   </p>
                   <small className={`${interRegular.className} text-[1.2em]`}>

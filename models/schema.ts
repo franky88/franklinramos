@@ -109,7 +109,7 @@ const SkillSchema = new Schema<ISkill>(
   {
     name: { type: String, required: true },
     application: { type: String, required: true },
-    mastery: { type: Number, required: true },
+    mastery: { type: Number, required: true, min: 1, max: 10 },
     skillType: {
       type: String,
       required: true,
