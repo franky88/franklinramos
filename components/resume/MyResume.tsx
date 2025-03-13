@@ -444,7 +444,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     Computer Systems Servicing
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
-                    Iligan Cumputer Institute
+                    Iligan Computer Institute
                   </Text>
                 </View>
                 <View>
@@ -457,7 +457,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     Professional Assistant 2D Animator
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
-                    Iligan Cumputer Institute
+                    Iligan Computer Institute
                   </Text>
                 </View>
                 <View>

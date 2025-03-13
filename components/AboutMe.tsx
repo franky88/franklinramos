@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Github } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import { Button } from "./ui/button";
@@ -43,7 +43,7 @@ const AboutMe = () => {
             With a passion for creativity and innovation, I deliver high-quality
             designs, animations, and websites that make an impact.
           </p>
-          <div className="flex gap-4 mt-4">
+          <div className="flex gap-4 justify-between items-center mt-4">
             <Link href={"/pdf-resume"}>
               <Button>
                 <ArrowRight className="w-4" />

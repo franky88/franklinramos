@@ -35,8 +35,14 @@ const Projects = () => {
         <div className="text-left">
           <div>
             <div>
-              <h2 className={`${interBlack.className} text-[3em]`}>Projects</h2>
-              <p className={`${interRegular.className} text-[1.5em]`}>
+              <h2
+                className={`${interBlack.className} text-[3em] text-gray-800`}
+              >
+                Projects
+              </h2>
+              <p
+                className={`${interRegular.className} text-[1.5em] text-gray-800`}
+              >
                 Here are some of my projects.
               </p>
             </div>

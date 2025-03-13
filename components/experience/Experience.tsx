@@ -18,10 +18,14 @@ const Experience = () => {
         <div className="flex flex-col gap-4">
           <div className="text-left sticky top-0 bg-slate-100">
             <div>
-              <h2 className={`${interBlack.className} text-[3em]`}>
+              <h2
+                className={`${interBlack.className} text-[3em] text-gray-800`}
+              >
                 Skills & Experience
               </h2>
-              <p className={`${interRegular.className} text-[1.5em]`}>
+              <p
+                className={`${interRegular.className} text-[1.5em] text-gray-800`}
+              >
                 Work experience & skills aquired
               </p>
             </div>

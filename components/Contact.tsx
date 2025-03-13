@@ -17,8 +17,12 @@ const Contact = () => {
       <div className="h-full flex items-center justify-start">
         <div className="flex flex-col gap-3 w-[400px]">
           <div>
-            <h2 className={`${interBlack.className} text-[3em]`}>Contact</h2>
-            <p className={`${interRegular.className} text-[1.5em]`}>
+            <h2 className={`${interBlack.className} text-[3em] text-gray-800`}>
+              Contact
+            </h2>
+            <p
+              className={`${interRegular.className} text-[1.5em] text-gray-800`}
+            >
               Get in touch with me.
             </p>
           </div>
