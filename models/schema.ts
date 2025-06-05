@@ -45,7 +45,6 @@ const ProjectTypeSchema = new Schema<IProjectType>(
   { timestamps: true }
 );
 
-
 interface IPortfolio extends Document {
   title: string;
   description: string;
@@ -100,7 +99,7 @@ interface ISkill extends Document {
   name: string;
   application: string;
   mastery: number;
-  skillType: "Languages" | "Applications" | "Skills";
+  skillType: "Languages" | "Applications" | "Skills" | "Framework";
   userId?: mongoose.Types.ObjectId;
   createdAt: Date;
 }
@@ -113,7 +112,7 @@ const SkillSchema = new Schema<ISkill>(
     skillType: {
       type: String,
       required: true,
-      enum: ["Languages", "Applications", "Skills"],
+      enum: ["Languages", "Applications", "Skills", "Framework"],
     },
     userId: { type: String, required: true },
   },
@@ -121,9 +120,19 @@ const SkillSchema = new Schema<ISkill>(
 );
 
 // Export models
-export const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
-export const Category = mongoose.models.Category || mongoose.model<ICategory>("Category", CategorySchema);
-export const ProjectType = mongoose.models.ProjectType || mongoose.model<IProjectType>("Projecttype", ProjectTypeSchema);
-export const Portfolio = mongoose.models.Portfolio || mongoose.model<IPortfolio>("Portfolio", PortfolioSchema);
-export const Experience = mongoose.models.Experience || mongoose.model<IExperience>("Experience", ExperienceSchema);
-export const Skill = mongoose.models.Skill || mongoose.model<ISkill>("Skill", SkillSchema);
+export const User =
+  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+export const Category =
+  mongoose.models.Category ||
+  mongoose.model<ICategory>("Category", CategorySchema);
+export const ProjectType =
+  mongoose.models.ProjectType ||
+  mongoose.model<IProjectType>("Projecttype", ProjectTypeSchema);
+export const Portfolio =
+  mongoose.models.Portfolio ||
+  mongoose.model<IPortfolio>("Portfolio", PortfolioSchema);
+export const Experience =
+  mongoose.models.Experience ||
+  mongoose.model<IExperience>("Experience", ExperienceSchema);
+export const Skill =
+  mongoose.models.Skill || mongoose.model<ISkill>("Skill", SkillSchema);
