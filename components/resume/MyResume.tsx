@@ -148,7 +148,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      justifyContent: "space-between",
+                      gap: 5,
                     }}
                   >
                     <Text style={styles.textDetails}>LANGUAGES</Text>
@@ -161,10 +161,46 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                               display: "flex",
                               flexDirection: "column",
                               alignItems: "center",
-                              gap: 5,
+                              gap: 2,
                             }}
                           >
-                            <Text style={[styles.textMuted, styles.textSmall]}>
+                            <Text style={[styles.textDetails]}>
+                              {skill.name},
+                            </Text>
+                          </View>
+                        )
+                    )}
+                  </View>
+                  <View
+                    style={{
+                      borderBottomColor: "#999",
+                      borderBottomWidth: 0.5,
+                      borderBottomStyle: "dashed",
+                      marginBottom: 5,
+                    }}
+                  />
+                </View>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: 5,
+                    }}
+                  >
+                    <Text style={styles.textDetails}>SKILLS</Text>
+                    {skills?.map(
+                      (skill) =>
+                        skill.skillType === "Skills" && (
+                          <View
+                            key={skill._id}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Text style={[styles.textDetails]}>
                               {skill.name}
                             </Text>
                           </View>
@@ -185,76 +221,27 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Text style={styles.textDetails}>SKILLS</Text>
-                    <Text style={styles.textDetails}>LVL</Text>
-                  </View>
-                  <View
-                    style={{
-                      borderBottomColor: "#999",
-                      borderBottomWidth: 0.5,
-                      borderBottomStyle: "dashed",
-                      marginBottom: 5,
-                    }}
-                  />
-                  {skills?.map(
-                    (skill) =>
-                      skill.skillType === "Skills" && (
-                        <View
-                          key={skill._id}
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <Text style={[styles.textMuted, styles.textSmall]}>
-                            {skill.name}
-                          </Text>
-                          <View
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              gap: 1,
-                            }}
-                          >
-                            {Array(skill.mastery)
-                              .fill(null)
-                              .map((_, index) => (
-                                <Text
-                                  key={`star-${skill._id}-${index}`}
-                                  style={{ color: "green" }}
-                                >
-                                  *
-                                </Text>
-                              ))}
-                            {Array(10.0 - skill.mastery)
-                              .fill(null)
-                              .map((_, index) => (
-                                <Text
-                                  key={`star-${skill._id}-${index}`}
-                                  style={{ color: "#999" }}
-                                >
-                                  *
-                                </Text>
-                              ))}
-                          </View>
-                        </View>
-                      )
-                  )}
-                </View>
-                <View>
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
+                      gap: 5,
                     }}
                   >
                     <Text style={styles.textDetails}>APPLICATIONS</Text>
-                    <Text style={styles.textDetails}>LVL</Text>
+                    {skills?.map(
+                      (skill) =>
+                        skill.skillType === "Applications" && (
+                          <View
+                            key={skill._id}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Text style={[styles.textMuted, styles.textSmall]}>
+                              {skill.name}
+                            </Text>
+                          </View>
+                        )
+                    )}
                   </View>
                   <View
                     style={{
@@ -264,51 +251,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                       marginBottom: 5,
                     }}
                   />
-                  {skills?.map(
-                    (skill) =>
-                      skill.skillType === "Applications" && (
-                        <View
-                          key={skill._id}
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <Text style={[styles.textMuted, styles.textSmall]}>
-                            {skill.name}
-                          </Text>
-                          <View
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              gap: 1,
-                            }}
-                          >
-                            {Array(skill.mastery)
-                              .fill(null)
-                              .map((_, index) => (
-                                <Text
-                                  key={`star-${skill._id}-${index}`}
-                                  style={{ color: "green" }}
-                                >
-                                  *
-                                </Text>
-                              ))}
-                            {Array(10.0 - skill.mastery)
-                              .fill(null)
-                              .map((_, index) => (
-                                <Text
-                                  key={`star-${skill._id}-${index}`}
-                                  style={{ color: "#999" }}
-                                >
-                                  *
-                                </Text>
-                              ))}
-                          </View>
-                        </View>
-                      )
-                  )}
                 </View>
               </View>
             </View>
