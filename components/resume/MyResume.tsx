@@ -171,14 +171,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                         )
                     )}
                   </View>
-                  <View
-                    style={{
-                      borderBottomColor: "#999",
-                      borderBottomWidth: 0.5,
-                      borderBottomStyle: "dashed",
-                      marginBottom: 5,
-                    }}
-                  />
                 </View>
                 <View>
                   <View
@@ -207,14 +199,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                         )
                     )}
                   </View>
-                  <View
-                    style={{
-                      borderBottomColor: "#999",
-                      borderBottomWidth: 0.5,
-                      borderBottomStyle: "dashed",
-                      marginBottom: 5,
-                    }}
-                  />
                 </View>
                 <View>
                   <View
@@ -243,14 +227,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                         )
                     )}
                   </View>
-                  <View
-                    style={{
-                      borderBottomColor: "#999",
-                      borderBottomWidth: 0.5,
-                      borderBottomStyle: "dashed",
-                      marginBottom: 5,
-                    }}
-                  />
                 </View>
               </View>
             </View>
@@ -296,14 +272,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                       </Text>
                     </View>
                   </View>
-                  <View
-                    style={{
-                      borderBottomColor: "#999",
-                      borderBottomWidth: 0.5,
-                      borderBottomStyle: "dashed",
-                      marginBottom: 5,
-                    }}
-                  ></View>
                 </View>
               ))}
             </View>
