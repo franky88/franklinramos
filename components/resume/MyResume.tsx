@@ -148,10 +148,10 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: 5,
+                      gap: 8,
                     }}
                   >
-                    <Text style={styles.textDetails}>LANGUAGES</Text>
+                    <Text style={styles.textDetails}>LANGUAGES:</Text>
                     {skills?.map(
                       (skill) =>
                         skill.skillType === "Languages" && (
@@ -185,10 +185,10 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: 5,
+                      gap: 8,
                     }}
                   >
-                    <Text style={styles.textDetails}>SKILLS</Text>
+                    <Text style={styles.textDetails}>SKILLS:</Text>
                     {skills?.map(
                       (skill) =>
                         skill.skillType === "Skills" && (
@@ -221,10 +221,10 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: 5,
+                      gap: 8,
                     }}
                   >
-                    <Text style={styles.textDetails}>APPLICATIONS</Text>
+                    <Text style={styles.textDetails}>APPLICATIONS:</Text>
                     {skills?.map(
                       (skill) =>
                         skill.skillType === "Applications" && (
@@ -307,10 +307,144 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 </View>
               ))}
             </View>
+            <View>
+              <Text style={styles.textTitle}>EDUCATION</Text>
+              <View style={styles.horizontalLine}></View>
+              <View style={[styles.flexDetails]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Bachelor of Science in Office Administration (ETEEAP)
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Cebu Institute of Technology - University
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>Mar 2018 to Nov 2018</Text>
+                </View>
+              </View>
+              <View style={[styles.flexDetails]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Computer Systems Servicing
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Iligan Computer Institute
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>Nov 2015 to Dec 2015</Text>
+                </View>
+              </View>
+              <View style={[styles.flexDetails]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Professional Assistant 2D Animator
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Iligan Computer Institute
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>Jun 2008 to Nov 2008</Text>
+                </View>
+              </View>
+              <View style={[styles.flexDetails]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Bachelor of Science in Business Administration Major in
+                    Financial Management
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Tagoloan Community College
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>Jun 2007 to Mar 2008</Text>
+                </View>
+              </View>
+            </View>
+            <View>
+              <Text style={styles.textTitle}>
+                NATIONAL CERTIFICATION PASSED
+              </Text>
+              <View style={styles.horizontalLine}></View>
+              <View style={[styles.flexDetails]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Computer Systems Servicing NC II
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2015</Text>
+                </View>
+              </View>
+              <View style={[styles.flexDetails]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Visual Graphics Design NC III
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2012</Text>
+                </View>
+              </View>
+              <View style={[styles.flexDetails]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    2D Animation (Digital) NC III
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2012</Text>
+                </View>
+              </View>
+            </View>
+            <View>
+              <Text style={styles.textTitle}>
+                NATIONAL TVET TRAINER CERTIFICATE (NTTC)
+              </Text>
+              <View style={styles.horizontalLine}></View>
+              <View style={[styles.flexDetails]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    Visual Graphics Design NC III
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2012</Text>
+                </View>
+              </View>
+              <View style={[styles.flexDetails]}>
+                <View>
+                  <Text style={styles.textDetails}>
+                    2D Animation (Digital) NC III
+                  </Text>
+                  <Text style={[styles.textSmall, styles.textMuted]}>
+                    Technical Education and Skills Development Authority (TESDA)
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.textDetails}>2012</Text>
+                </View>
+              </View>
+            </View>
           </View>
         </View>
       </Page>
-      <Page size={"LEGAL"} style={styles.page}>
+      {/* <Page size={"LEGAL"} style={styles.page}>
         <View style={[styles.section, styles.textFlexCol]}>
           <View style={[styles.textFlexCol]}>
             <View>
@@ -518,7 +652,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
             </View>
           </View>
         </View>
-      </Page>
+      </Page> */}
     </Document>
   );
 };
