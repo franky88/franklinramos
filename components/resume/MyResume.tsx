@@ -236,7 +236,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                               justifyContent: "space-between",
                             }}
                           >
-                            <Text style={[styles.textMuted, styles.textSmall]}>
+                            <Text style={[styles.textDetails]}>
                               {skill.name}
                             </Text>
                           </View>
@@ -274,26 +274,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                         <Text style={[styles.textDetails, styles.textMuted]}>
                           Company: {ex.company}
                         </Text>
-                      </View>
-                      <View
-                        style={{
-                          paddingTop: 5,
-                          width: "100%",
-                        }}
-                      >
-                        <Text style={styles.textSmall}>
-                          Tasks and Responsibilities:
-                        </Text>
-                        <View>
-                          {ex.description?.split(", ").map((s, index) => (
-                            <Text
-                              key={index}
-                              style={[styles.textSmall, styles.textMuted]}
-                            >
-                              {s}
-                            </Text>
-                          ))}
-                        </View>
                       </View>
                     </View>
                     <View>
