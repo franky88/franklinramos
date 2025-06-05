@@ -134,81 +134,6 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
         <View style={[styles.section]}>
           <View style={[styles.textFlexCol]}>
             <View style={{ width: "100%", padding: 5 }}>
-              <Text style={styles.textTitle}>WORK EXPERIENCE</Text>
-              <View style={styles.horizontalLine}></View>
-              {experience.map((ex) => (
-                <View key={ex._id}>
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <View style={{ marginBottom: 10, display: "flex", gap: 5 }}>
-                      <View>
-                        <Text style={[styles.textDetails]}>
-                          {ex.position.toUpperCase()}
-                        </Text>
-                        <Text style={[styles.textDetails, styles.textMuted]}>
-                          Company: {ex.company}
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          paddingTop: 5,
-                          width: "100%",
-                        }}
-                      >
-                        <Text style={styles.textSmall}>
-                          Tasks and Responsibilities:
-                        </Text>
-                        <View>
-                          {ex.description?.split(", ").map((s, index) => (
-                            <Text
-                              key={index}
-                              style={[styles.textSmall, styles.textMuted]}
-                            >
-                              {s}
-                            </Text>
-                          ))}
-                        </View>
-                      </View>
-                    </View>
-                    <View>
-                      <Text style={[styles.textDetails]}>
-                        {ex.startDate
-                          ? new Date(ex.startDate).toLocaleString("en-US", {
-                              month: "short",
-                            }) +
-                            " " +
-                            new Date(ex.startDate).getUTCFullYear()
-                          : "N/A"}{" "}
-                        to{" "}
-                        {ex.endDate
-                          ? new Date(ex.endDate).toLocaleString("en-US", {
-                              month: "short",
-                            }) +
-                            " " +
-                            new Date(ex.endDate).getUTCFullYear()
-                          : "N/A"}
-                      </Text>
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      borderBottomColor: "#999",
-                      borderBottomWidth: 0.5,
-                      borderBottomStyle: "dashed",
-                      marginBottom: 5,
-                    }}
-                  ></View>
-                </View>
-              ))}
-            </View>
-          </View>
-          <View style={[styles.textFlexCol]}>
-            <View style={{ width: "100%", padding: 5 }}>
               <Text style={styles.textTitle}>SKILLS AND SOFTSKILLS</Text>
               <View style={styles.horizontalLine}></View>
               <View
@@ -415,6 +340,79 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                   )}
                 </View>
               </View>
+            </View>
+            <View style={{ width: "100%", padding: 5 }}>
+              <Text style={styles.textTitle}>WORK EXPERIENCE</Text>
+              <View style={styles.horizontalLine}></View>
+              {experience.map((ex) => (
+                <View key={ex._id}>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View style={{ marginBottom: 10, display: "flex", gap: 5 }}>
+                      <View>
+                        <Text style={[styles.textDetails]}>
+                          {ex.position.toUpperCase()}
+                        </Text>
+                        <Text style={[styles.textDetails, styles.textMuted]}>
+                          Company: {ex.company}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          paddingTop: 5,
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={styles.textSmall}>
+                          Tasks and Responsibilities:
+                        </Text>
+                        <View>
+                          {ex.description?.split(", ").map((s, index) => (
+                            <Text
+                              key={index}
+                              style={[styles.textSmall, styles.textMuted]}
+                            >
+                              {s}
+                            </Text>
+                          ))}
+                        </View>
+                      </View>
+                    </View>
+                    <View>
+                      <Text style={[styles.textDetails]}>
+                        {ex.startDate
+                          ? new Date(ex.startDate).toLocaleString("en-US", {
+                              month: "short",
+                            }) +
+                            " " +
+                            new Date(ex.startDate).getUTCFullYear()
+                          : "N/A"}{" "}
+                        to{" "}
+                        {ex.endDate
+                          ? new Date(ex.endDate).toLocaleString("en-US", {
+                              month: "short",
+                            }) +
+                            " " +
+                            new Date(ex.endDate).getUTCFullYear()
+                          : "N/A"}
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      borderBottomColor: "#999",
+                      borderBottomWidth: 0.5,
+                      borderBottomStyle: "dashed",
+                      marginBottom: 5,
+                    }}
+                  ></View>
+                </View>
+              ))}
             </View>
           </View>
         </View>
