@@ -201,7 +201,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                             }}
                           >
                             <Text style={[styles.textDetails]}>
-                              {skill.name}
+                              {skill.name},
                             </Text>
                           </View>
                         )
@@ -237,7 +237,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                             }}
                           >
                             <Text style={[styles.textDetails]}>
-                              {skill.name}
+                              {skill.name},
                             </Text>
                           </View>
                         )
@@ -307,13 +307,13 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 </View>
               ))}
             </View>
-            <View>
+            <View style={{ width: "100%", padding: 5 }}>
               <Text style={styles.textTitle}>EDUCATION</Text>
               <View style={styles.horizontalLine}></View>
               <View style={[styles.flexDetails]}>
                 <View>
                   <Text style={styles.textDetails}>
-                    Bachelor of Science in Office Administration (ETEEAP)
+                    BACHELOR OF SCIENCE IN OFFICE ADMINISTRATION (ETEEAP)
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Cebu Institute of Technology - University
@@ -326,7 +326,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <View style={[styles.flexDetails]}>
                 <View>
                   <Text style={styles.textDetails}>
-                    Computer Systems Servicing
+                    COMPUTER SYSTEMS SERVICING
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Iligan Computer Institute
@@ -339,7 +339,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <View style={[styles.flexDetails]}>
                 <View>
                   <Text style={styles.textDetails}>
-                    Professional Assistant 2D Animator
+                    PROFESSIONAL ASSISTANT 2D ANIMATOR
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Iligan Computer Institute
@@ -352,8 +352,8 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <View style={[styles.flexDetails]}>
                 <View>
                   <Text style={styles.textDetails}>
-                    Bachelor of Science in Business Administration Major in
-                    Financial Management
+                    BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN
+                    FINANCIAL MANAGEMENT
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Tagoloan Community College
@@ -364,7 +364,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 </View>
               </View>
             </View>
-            <View>
+            <View style={{ width: "100%", padding: 5 }}>
               <Text style={styles.textTitle}>
                 NATIONAL CERTIFICATION PASSED
               </Text>
@@ -372,7 +372,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <View style={[styles.flexDetails]}>
                 <View>
                   <Text style={styles.textDetails}>
-                    Computer Systems Servicing NC II
+                    COMPUTER SYSTEMS SERVICING NC II
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Technical Education and Skills Development Authority (TESDA)
@@ -385,7 +385,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <View style={[styles.flexDetails]}>
                 <View>
                   <Text style={styles.textDetails}>
-                    Visual Graphics Design NC III
+                    VISUAL GRAPHICS DESIGN NC III
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Technical Education and Skills Development Authority (TESDA)
@@ -398,7 +398,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <View style={[styles.flexDetails]}>
                 <View>
                   <Text style={styles.textDetails}>
-                    2D Animation (Digital) NC III
+                    2D ANIMATION (DIGITAL) NC III
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Technical Education and Skills Development Authority (TESDA)
@@ -409,7 +409,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                 </View>
               </View>
             </View>
-            <View>
+            <View style={{ width: "100%", padding: 5 }}>
               <Text style={styles.textTitle}>
                 NATIONAL TVET TRAINER CERTIFICATE (NTTC)
               </Text>
@@ -417,7 +417,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <View style={[styles.flexDetails]}>
                 <View>
                   <Text style={styles.textDetails}>
-                    Visual Graphics Design NC III
+                    VISUAL GRAPHICS DESIGN NC III
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Technical Education and Skills Development Authority (TESDA)
@@ -430,7 +430,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
               <View style={[styles.flexDetails]}>
                 <View>
                   <Text style={styles.textDetails}>
-                    2D Animation (Digital) NC III
+                    2D ANIMATION (DIGITAL) NC III
                   </Text>
                   <Text style={[styles.textSmall, styles.textMuted]}>
                     Technical Education and Skills Development Authority (TESDA)
