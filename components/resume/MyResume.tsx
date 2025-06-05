@@ -189,7 +189,7 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                             style={{
                               display: "flex",
                               flexDirection: "row",
-                              justifyContent: "space-between",
+                              gap: 2,
                             }}
                           >
                             <Text style={[styles.textDetails]}>
@@ -217,7 +217,35 @@ const MyResume = ({ experience, skills }: MyResumeProps) => {
                             style={{
                               display: "flex",
                               flexDirection: "row",
-                              justifyContent: "space-between",
+                              gap: 2,
+                            }}
+                          >
+                            <Text style={[styles.textDetails]}>
+                              {skill.name},
+                            </Text>
+                          </View>
+                        )
+                    )}
+                  </View>
+                </View>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: 8,
+                    }}
+                  >
+                    <Text style={styles.textDetails}>FRAMEWORKS:</Text>
+                    {skills?.map(
+                      (skill) =>
+                        skill.skillType === "Framework" && (
+                          <View
+                            key={skill._id}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              gap: 2,
                             }}
                           >
                             <Text style={[styles.textDetails]}>
