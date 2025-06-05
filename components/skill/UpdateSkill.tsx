@@ -156,6 +156,7 @@ const UpdateSkill = ({ skill, updateSkillList }: UpdateExperienceProps) => {
                       <SelectItem value="Languages">Languages</SelectItem>
                       <SelectItem value="Applications">Applications</SelectItem>
                       <SelectItem value="Skills">Skills</SelectItem>
+                      <SelectItem value="Framework">Framework</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
