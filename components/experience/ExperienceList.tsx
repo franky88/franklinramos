@@ -138,7 +138,7 @@ const ExperienceList = () => {
                 <div className="flex items-center justify-between w-full">
                   <div className="w-full">
                     {/* <ExperienceDialog experience={ex} /> */}
-                    <strong className="text-xl text-blue-900 text-left">
+                    <strong className="text-xl text-slate-900 text-left">
                       {ex.position}
                     </strong>
                   </div>
