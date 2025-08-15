@@ -1,6 +1,6 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import React, { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const FlipWords = ({
@@ -43,6 +43,7 @@ export const FlipWords = ({
   }, [isAnimating, duration, startAnimation]);
 
   // Color scheme functions
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getLetterColor = (letterIndex: number, wordIndex: number = 0) => {
     if (letterColors.length > 0) {
       return letterColors[letterIndex % letterColors.length];

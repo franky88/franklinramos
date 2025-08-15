@@ -4,13 +4,10 @@ import { HeroSection } from "./ui/hero-section";
 import { FeatureCards } from "./ui/feature-cards";
 import PortfolioSection from "./portfolio-section";
 import ContactMe from "./contact-me-section";
-import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { FloatingNav } from "./ui/floating-navbar";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 
 const LandingPage = () => {
-  const activeSection = useScrollSpy("section[id]");
-
   const navItems = [
     {
       name: "Home",
