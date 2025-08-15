@@ -90,7 +90,14 @@ export const FloatingNav = ({
           </a>
         ))}
         <button
-          onClick={() => redirect("/resume")}
+          onClick={() => {
+            const link = document.createElement("a");
+            link.href = "resume/franklin_ramos_resume_2025.pdf";
+            link.download = "franklin_ramos_resume_2025.pdf";
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+          }}
           className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full"
         >
           <span>Resume</span>

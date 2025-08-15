@@ -119,7 +119,13 @@ export const Header = () => {
         className="flex gap-4 justify-start flex-wrap mt-5 z-20"
       >
         <BorderButton>
-          <Link href={"/resume"}>My Resume</Link>
+          <Link
+            href={"/resume/franklin_ramos_resume_2025.pdf"}
+            target="_blank"
+            download
+          >
+            My Resume
+          </Link>
         </BorderButton>
       </motion.div>
     </div>
