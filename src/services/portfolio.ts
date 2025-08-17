@@ -1,6 +1,7 @@
 import images from "@/constants/images";
+import { PortfolioItem } from "@/types/portfolio";
 
-export const portfolio = [
+export const portfolio: PortfolioItem[] = [
   {
     title: "LMcG",
     link: "https://lmcg.com.au",
