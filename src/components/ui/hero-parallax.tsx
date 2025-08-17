@@ -9,17 +9,9 @@ import {
 } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { PortfolioItem } from "@/types/portfolio";
 
-export const HeroParallax = ({
-  products,
-}: {
-  products: {
-    title: string;
-    link: string;
-    thumbnail: string;
-    description?: string;
-  }[];
-}) => {
+export const HeroParallax = ({ products }: { products: PortfolioItem[] }) => {
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
   const thirdRow = products.slice(10, 15);
@@ -137,12 +129,7 @@ export const ProductCard = ({
   product,
   translate,
 }: {
-  product: {
-    title: string;
-    link: string;
-    thumbnail: string;
-    description?: string;
-  };
+  product: PortfolioItem;
   translate: MotionValue<number>;
 }) => {
   return (
