@@ -29,6 +29,8 @@ export const FeatureCards = () => {
         { name: "Next.js", icon: "nextjs-icon" },
         { name: "React", icon: "react-icon" },
         { name: "Node.js", icon: "nodejs-icon" },
+        { name: "Python", icon: "python-icon" },
+        { name: "Django", icon: "django-icon" },
         { name: "Tailwind CSS", icon: "tailwind-icon" },
       ],
     },
