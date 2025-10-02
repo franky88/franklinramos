@@ -15,6 +15,7 @@ export async function GET(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(user);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to fetch user" },
       { status: 500 }
@@ -51,6 +52,7 @@ export async function DELETE(
     await prisma.user.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to delete user" },
       { status: 500 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { createPortfolioCategory } from "@/app/actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
@@ -16,7 +15,6 @@ import {
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import api from "@/lib/axios";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface AddCategoryProps {
   fetchCategoriesData?: () => void;
@@ -43,7 +41,7 @@ const AddCategory = ({ fetchCategoriesData }: AddCategoryProps) => {
       setOpen(false);
       router.refresh();
 
-      fetchCategoriesData && fetchCategoriesData();
+      fetchCategoriesData?.();
     } catch (error) {
       console.error("Error creating portfolio:", error);
     } finally {

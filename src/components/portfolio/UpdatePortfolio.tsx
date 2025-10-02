@@ -47,25 +47,23 @@ const UpdatePortfolio = ({
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const fetchPortfolio = async () => {
-    try {
-      const res = await api.get(`portfolios/${portfolioId}`);
-      setPortfolio(res.data);
-    } catch (error) {
-      console.error("Failed to fetch portfolio:", error);
-    }
-  };
-
-  const fetchCategories = async () => {
-    try {
-      const data = await getPortfolioCategories();
-      setCategories(data);
-    } catch (error) {
-      console.error("Failed to fetch categories:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        const res = await api.get(`portfolios/${portfolioId}`);
+        setPortfolio(res.data);
+      } catch (error) {
+        console.error("Failed to fetch portfolio:", error);
+      }
+    };
+    const fetchCategories = async () => {
+      try {
+        const data = await getPortfolioCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
     fetchCategories();
     fetchPortfolio();
   }, []);

@@ -1,6 +1,5 @@
 "use client";
 
-import { getPortfolioCategories } from "@/app/actions";
 import { PortfolioCategory } from "@prisma/client";
 import CategoriesClient from "./CategoriesClient";
 import { useEffect, useState } from "react";

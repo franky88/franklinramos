@@ -17,7 +17,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { BadgeCheckIcon, X } from "lucide-react";
+import { BadgeCheckIcon } from "lucide-react";
 import DeleteSkill from "../DeleteSkill";
 import UpdateSkill from "../UpdateSkill";
 

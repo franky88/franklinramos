@@ -16,7 +16,6 @@ import { Badge } from "../ui/badge";
 import UpdatePortfolio from "./UpdatePortfolio";
 import images from "@/constants/images";
 import { User } from "@prisma/client";
-import { Tab } from "redoc/typings/common-elements";
 import { Skeleton } from "../ui/skeleton";
 
 type PortfolioWithRelations = Portfolio & {

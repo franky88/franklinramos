@@ -41,7 +41,9 @@ const DeletePortfolio = ({
         setOpen(false);
         router.refresh();
 
-        fetchPortfoliosData && fetchPortfoliosData();
+        if (fetchPortfoliosData) {
+          fetchPortfoliosData();
+        }
       } else {
         toast.error("Failed to delete portfolio");
       }

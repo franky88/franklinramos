@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { fetchPortfolio } from "@/lib/dataFetch";
 import Portfolios from "./Portfolios";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,7 @@ export default function PortfoliosList() {
   const [loading, setLoading] = useState(false);
   const limit = 5;
 
-  const load = async () => {
+  const load = useCallback(async () => {
     try {
       setLoading(true);
       const { data: portfolios, total } = await fetchPortfolio(page, limit);
@@ -31,11 +31,11 @@ export default function PortfoliosList() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, limit]);
 
   useEffect(() => {
     load();
-  }, [page]);
+  }, [load]);
 
   const totalPages = Math.ceil(total / limit);
 

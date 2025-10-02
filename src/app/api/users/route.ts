@@ -28,6 +28,7 @@ export async function GET() {
 //     return NextResponse.json(user, { status: 201 });
 //   } catch (error) {
 //     console.error(error);
+// console.error(error);
 //     return NextResponse.json(
 //       { error: "Failed to create user" },
 //       { status: 500 }

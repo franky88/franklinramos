@@ -40,7 +40,7 @@ const DeleteCategory = ({
       router.refresh();
       setOpen(false);
 
-      fetchCategoriesData && fetchCategoriesData();
+      fetchCategoriesData?.();
     } catch (error) {
       console.error("Error during deletion:", error);
     } finally {
