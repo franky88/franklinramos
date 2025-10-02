@@ -8,6 +8,7 @@ import {
 } from "motion/react";
 import { cn } from "@/lib/utils";
 import { animate } from "framer-motion";
+import { SignedIn } from "@clerk/nextjs";
 
 export const FloatingNav = ({
   navItems,
@@ -88,6 +89,17 @@ export const FloatingNav = ({
             <span className="hidden sm:block text-sm">{navItem.name}</span>
           </a>
         ))}
+        <SignedIn>
+          <a
+            href="/dashboard"
+            className={cn(
+              "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
+            )}
+          >
+            <span className="hidden sm:block text-sm">Dashboard</span>
+          </a>
+        </SignedIn>
+
         <button
           onClick={() => {
             const link = document.createElement("a");

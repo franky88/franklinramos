@@ -29,6 +29,7 @@ export const portfolio: PortfolioItem[] = [
   {
     title: "Gen Eco",
     link: "https://www.gen-eco.com.au/",
+    description: "Animated logo for Gen Eco",
     thumbnail: images.image08,
   },
   {

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SkillList from "../skills/SkillList";
 
 export const FeatureCards = () => {
   const features = [
@@ -67,42 +68,7 @@ export const FeatureCards = () => {
             projects to fruition.
           </p>
         </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-            >
-              <GlassCard>
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  {feature.description}
-                </p>
-                <div>
-                  <small className="text-gray-400 mt-4">
-                    Tools & Technologies:
-                  </small>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {feature.apps?.map((app, idx) => (
-                      <small
-                        key={idx}
-                        className="text-gray-300 leading-relaxed py-2 px-4 bg-white/10 rounded-full"
-                      >
-                        {app.name}
-                      </small>
-                    ))}
-                  </div>
-                </div>
-              </GlassCard>
-            </motion.div>
-          ))}
-        </div>
+        <SkillList />
       </div>
     </section>
   );

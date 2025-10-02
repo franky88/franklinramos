@@ -12,6 +12,13 @@ import {
   IconFolderOpen,
   IconPhotoVideo,
 } from "@tabler/icons-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignIn,
+  SignInButton,
+  SignOutButton,
+} from "@clerk/nextjs";
 
 const LandingPage = () => {
   const navItems = [
@@ -61,9 +68,15 @@ const LandingPage = () => {
           <ContactMe />
         </section>
       </main>
-      <footer>
+      <footer className="bg-black">
         <div className="text-center py-6 text-sm text-gray-500 dark:text-gray-400">
-          © {new Date().getFullYear()} Franklin Ramos. All rights reserved.
+          © {new Date().getFullYear()} Franklin Ramos. All rights reserved.{" "}
+          <SignedIn>
+            <SignOutButton redirectUrl="/" />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton mode="modal" />
+          </SignedOut>
         </div>
       </footer>
     </>

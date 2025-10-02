@@ -13,8 +13,8 @@ export const HeroSection = () => {
     "animation.",
   ];
   const navItems = [
-    { href: "#portfolio", label: "View my works" },
-    { href: "#contact", label: "Contact me" },
+    { href: "#portfolio", label: "See how I help brands stand out" },
+    { href: "#contact", label: "Let’s start your project" },
   ];
 
   const handleSmoothScroll = (e: React.MouseEvent, id: string) => {
@@ -22,7 +22,7 @@ export const HeroSection = () => {
     const target = document.getElementById(id);
     if (!target) return;
 
-    const targetY = target.getBoundingClientRect().top + window.scrollY - 80; // Offset for header
+    const targetY = target.getBoundingClientRect().top + window.scrollY - 80;
     animate(window.scrollY, targetY, {
       duration: 0.8,
       ease: [0.25, 0.1, 0.25, 1],

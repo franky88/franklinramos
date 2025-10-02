@@ -13,6 +13,7 @@ import image12 from "../../public/images/prorepair_ojjx5w.jpg";
 import image13 from "../../public/images/signarama_oo3xxw.jpg";
 import image14 from "../../public/images/truckmech_brw7i0.png";
 import image15 from "../../public/images/yourtaxmate_ygojzc.jpg";
+import imageHolder from "../../public/images/imaage_holder.jpg";
 
 const images = {
   image01,
@@ -30,6 +31,7 @@ const images = {
   image13,
   image14,
   image15,
+  imageHolder,
 };
 
 export default images;

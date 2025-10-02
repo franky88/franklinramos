@@ -1,0 +1,129 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Define your database schema here
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId   String   @unique
+  email     String   @unique
+  name      String?
+  posts     Post[]
+  profile   Profile?
+  skills    Skill[]
+  portfolios Portfolio[]
+  comments  Comment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  String?  @db.ObjectId
+  comments  Comment[]
+  postCategory PostCategory? @relation(fields: [postCategoryId], references: [id])
+  postCategoryId String? @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([authorId], name: "authorId_idx")
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  text      String
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?  @db.ObjectId
+  author     User?    @relation(fields: [authorId], references: [id])
+  authorId   String?  @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId], name: "postId_idx")
+}
+
+model Profile {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  bio    String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId String  @unique @db.ObjectId
+}
+
+model Skill {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  level     String
+  user      User?    @relation(fields: [userId], references: [id])
+  skillCategory SkillCategory? @relation(fields: [skillCategoryId], references: [id])
+  skillCategoryId String? @db.ObjectId
+  userId    String?  @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SkillCategory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  description String?
+  icon      String?
+  skills    Skill[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostCategory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Portfolio {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String?
+  imageUrl    String?
+  projectUrl  String?
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?  @db.ObjectId
+  portfolioCategory PortfolioCategory? @relation(fields: [portfolioCategoryId], references: [id])
+  portfolioCategoryId String? @db.ObjectId
+  isHidden   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PortfolioCategory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  portfolios Portfolio[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Visitor {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  referrer  String?
+  ua        String?    // user-agent
+  language  String?
+  viewport  String?
+  ip        String?
+  createdAt DateTime @default(now())
+}
