@@ -2,12 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 // GET /api/portfolio-categories/[id]
-export async function GET(
-  _req: NextRequest,
-  context: { params: { id: string } }
-) {
-  const { id } = context.params;
+export async function GET(_req: Request, context: { params: { id: string } }) {
   try {
+    const { id } = context.params;
+
     const category = await prisma.portfolioCategory.findUnique({
       where: { id },
       include: { portfolios: true },
@@ -27,18 +25,16 @@ export async function GET(
   }
 }
 
-// PUT /api/portfolio-categories/[id]
-export async function PUT(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
-  const { id } = context.params;
+export async function PUT(req: Request, context: { params: { id: string } }) {
   try {
+    const { id } = context.params;
     const { name } = await req.json();
+
     const updated = await prisma.portfolioCategory.update({
       where: { id },
       data: { name },
     });
+
     return NextResponse.json(updated);
   } catch (error) {
     console.error(error);
@@ -49,13 +45,13 @@ export async function PUT(
   }
 }
 
-// DELETE /api/portfolio-categories/[id]
 export async function DELETE(
-  _req: NextRequest,
+  _req: Request,
   context: { params: { id: string } }
 ) {
-  const { id } = context.params;
   try {
+    const { id } = context.params;
+
     await prisma.portfolioCategory.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (error) {
