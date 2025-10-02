@@ -1,7 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET(req: Request, context: { params: { id: string } }) {
+// GET /api/portfolio-categories/[id]
+export async function GET(
+  _req: NextRequest,
+  context: { params: { id: string } }
+) {
   const { id } = context.params;
   try {
     const category = await prisma.portfolioCategory.findUnique({
@@ -23,7 +27,11 @@ export async function GET(req: Request, context: { params: { id: string } }) {
   }
 }
 
-export async function PUT(req: Request, context: { params: { id: string } }) {
+// PUT /api/portfolio-categories/[id]
+export async function PUT(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
   const { id } = context.params;
   try {
     const { name } = await req.json();
@@ -41,8 +49,9 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
   }
 }
 
+// DELETE /api/portfolio-categories/[id]
 export async function DELETE(
-  req: Request,
+  _req: NextRequest,
   context: { params: { id: string } }
 ) {
   const { id } = context.params;

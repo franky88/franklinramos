@@ -66,7 +66,7 @@ const UpdatePortfolio = ({
     };
     fetchCategories();
     fetchPortfolio();
-  }, []);
+  }, [portfolioId]);
 
   useEffect(() => {
     if (portfolio) {
