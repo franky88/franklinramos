@@ -1,14 +1,7 @@
 import React, { Suspense } from "react";
 import Skills from "@/components/skills/Skills";
-import { getSkillCategories } from "@/app/actions";
 import { fetchSkillCategories } from "@/lib/dataFetch";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import AddCategory from "@/components/skills/category/AddCategory";
 import { Skeleton } from "@/components/ui/skeleton";
 

@@ -14,6 +14,7 @@ export async function GET(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(category);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to fetch skill category" },
       { status: 500 }
@@ -33,6 +34,7 @@ export async function PUT(
     });
     return NextResponse.json(updated);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to update skill category" },
       { status: 500 }
@@ -48,6 +50,7 @@ export async function DELETE(
     await prisma.skillCategory.delete({ where: { id: params.id } });
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to delete skill category" },
       { status: 500 }

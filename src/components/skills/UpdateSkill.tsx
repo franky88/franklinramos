@@ -62,7 +62,7 @@ const UpdateSkill = ({ skill }: UpdateSkillProps) => {
           <DialogHeader>
             <DialogTitle>Update skill: {skill.name}</DialogTitle>
             <DialogDescription>
-              Make changes to your skill here. Click save when you're done.
+              Make changes to your skill here. Click save when you are done.
             </DialogDescription>
           </DialogHeader>
 

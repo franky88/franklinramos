@@ -4,19 +4,8 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
 } from "@/components/ui/chart";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  AreaChart,
-  Area,
-  ResponsiveContainer,
-} from "recharts";
+import { Line, XAxis, CartesianGrid, AreaChart, Area } from "recharts";
 
 type Props = {
   data: { date: string; visits: number }[];
@@ -30,12 +19,6 @@ const chartConfig = {
 };
 
 const VisitorChart = ({ data }: Props) => {
-  const dataSample = [
-    { date: "2025-09-25", visits: 10 },
-    { date: "2025-09-26", visits: 15 },
-    { date: "2025-09-27", visits: 7 },
-    { date: "2025-09-28", visits: 20 },
-  ];
   return (
     <ChartContainer
       config={chartConfig}

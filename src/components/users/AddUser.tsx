@@ -28,11 +28,8 @@ const AddUser = () => {
       toast.success("User create successfully!");
 
       router.refresh();
-    } catch (error: any) {
-      console.error(
-        "Error creating user:",
-        error.response?.data || error.message
-      );
+    } catch (error) {
+      console.error("Error creating user:", error);
     } finally {
       setLoading(false);
     }

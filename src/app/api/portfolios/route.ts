@@ -62,6 +62,7 @@ export async function POST(req: Request) {
     });
     return NextResponse.json(portfolio, { status: 201 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to create portfolio" },
       { status: 500 }

@@ -9,6 +9,7 @@ export async function GET() {
     });
     return NextResponse.json(comments);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to fetch comments" },
       { status: 500 }
@@ -24,6 +25,7 @@ export async function POST(req: Request) {
     });
     return NextResponse.json(comment, { status: 201 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to create comment" },
       { status: 500 }

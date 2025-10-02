@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { deletePortfolio } from "@/app/actions";
 import api from "@/lib/axios";
 import { toast } from "sonner";
 

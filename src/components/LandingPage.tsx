@@ -8,14 +8,12 @@ import { FloatingNav } from "./ui/floating-navbar";
 import {
   IconHome,
   IconMessage,
-  IconUser,
   IconFolderOpen,
   IconPhotoVideo,
 } from "@tabler/icons-react";
 import {
   SignedIn,
   SignedOut,
-  SignIn,
   SignInButton,
   SignOutButton,
 } from "@clerk/nextjs";

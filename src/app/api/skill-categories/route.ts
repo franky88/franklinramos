@@ -9,6 +9,7 @@ export async function GET() {
     });
     return NextResponse.json(categories);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to fetch skill categories" },
       { status: 500 }
@@ -22,6 +23,7 @@ export async function POST(req: Request) {
     const category = await prisma.skillCategory.create({ data: { name } });
     return NextResponse.json(category, { status: 201 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to create skill category" },
       { status: 500 }

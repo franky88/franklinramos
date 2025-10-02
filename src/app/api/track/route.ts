@@ -22,10 +22,10 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ ok: true });
-  } catch (err: any) {
-    console.error("track error", err);
+  } catch (error) {
+    console.error("track error", error);
     return NextResponse.json(
-      { ok: false, error: String(err) },
+      { ok: false, error: String(error) },
       { status: 500 }
     );
   }

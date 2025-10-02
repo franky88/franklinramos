@@ -1,11 +1,4 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +9,6 @@ import { SkillCategory } from "@prisma/client";
 import { Skill } from "@prisma/client";
 import { Button } from "../ui/button";
 import { BadgeCheckIcon } from "lucide-react";
-import AddCategory from "./category/AddCategory";
 import { Badge } from "@/components/ui/badge";
 import DeleteCategory from "./category/DeleteCategory";
 import AddSkill from "./AddSkill";

@@ -9,6 +9,7 @@ export async function GET() {
     });
     return NextResponse.json(skills);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to fetch skills" },
       { status: 500 }
@@ -24,6 +25,7 @@ export async function POST(req: Request) {
     });
     return NextResponse.json(skill, { status: 201 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to create skill" },
       { status: 500 }

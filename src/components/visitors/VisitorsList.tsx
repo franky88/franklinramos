@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import api from "@/lib/axios";
+import { Visitor } from "@prisma/client";
 
 const VisitorsList = () => {
-  const [visitors, setVisitors] = useState<any[]>([]);
+  const [visitors, setVisitors] = useState<Visitor[]>([]);
 
   async function loadVisitors() {
     try {

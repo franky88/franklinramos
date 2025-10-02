@@ -8,9 +8,9 @@ export async function GET() {
       take: 200,
     });
     return NextResponse.json({ ok: true, visitors });
-  } catch (err: any) {
+  } catch (error) {
     return NextResponse.json(
-      { ok: false, error: String(err) },
+      { ok: false, error: String(error) },
       { status: 500 }
     );
   }

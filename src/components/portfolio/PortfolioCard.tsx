@@ -1,36 +1,12 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Badge } from "../ui/badge";
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
-import { Portfolio } from "@prisma/client";
-import api from "@/lib/axios";
-import { Skeleton } from "../ui/skeleton";
 
 interface PortfolioCardProps {
   count: number;
 }
 
 const PortfolioCard = ({ count }: PortfolioCardProps) => {
-  //   const [totalPortfolios, setTotalPortfolios] = useState(0);
-  //   const [loading, setLoading] = useState(false);
-
-  //   const fetchPortfolios = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const response = await api.get("portfolios");
-  //       setTotalPortfolios(response.data.total);
-  //     } catch (error) {
-  //       console.error("Error fetching portfolios:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     fetchPortfolios();
-  //   }, []);
-
   return (
     <div className="bg-muted/10 rounded-xl border p-4">
       <div className="flex flex-col gap-2">

@@ -14,6 +14,7 @@ export async function GET(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(portfolio);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to fetch portfolio" },
       { status: 500 }
@@ -41,6 +42,7 @@ export async function PUT(
     });
     return NextResponse.json(updated);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to update portfolio" },
       { status: 500 }
@@ -57,6 +59,7 @@ export async function DELETE(
     await prisma.portfolio.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to delete portfolio" },
       { status: 500 }
