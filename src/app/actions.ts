@@ -77,9 +77,11 @@ export async function getUserById(userId: string) {
 export async function createUser({
   name,
   email,
+  clerkId,
 }: {
   name: string;
   email: string;
+  clerkId: string;
 }) {
   if (!email) {
     throw new Error("Email is required");
@@ -87,7 +89,7 @@ export async function createUser({
 
   try {
     const user = await prisma.user.create({
-      data: { name, email },
+      data: { name, email, clerkId },
     });
 
     revalidatePath("/");
