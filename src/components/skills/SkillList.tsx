@@ -4,11 +4,14 @@ import React from "react";
 import { motion } from "framer-motion";
 import { SkillCategory } from "@prisma/client";
 import { getSkillCategories } from "@/app/actions";
+import { Skill } from "@prisma/client";
+
+type SkillCategoryWithSkills = SkillCategory & { skills: Skill[] };
 
 const SkillList = () => {
-  const [skillCategories, setSkillCategories] = React.useState<SkillCategory[]>(
-    []
-  );
+  const [skillCategories, setSkillCategories] = React.useState<
+    SkillCategoryWithSkills[]
+  >([]);
 
   const fetchSkillCategories = async () => {
     try {
