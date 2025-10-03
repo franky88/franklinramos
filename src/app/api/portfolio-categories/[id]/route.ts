@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// GET /api/portfolio-categories/[id]
-export async function GET(_req: Request, context: { params: { id: string } }) {
+export async function GET(
+  _req: Request,
+  { params }: { params: { id: string } }
+) {
   try {
-    const { id } = context.params;
-
     const category = await prisma.portfolioCategory.findUnique({
-      where: { id },
+      where: { id: params.id },
       include: { portfolios: true },
     });
 
