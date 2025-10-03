@@ -3,11 +3,12 @@ import prisma from "@/lib/prisma";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const skill = await prisma.skill.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { skillCategory: true, user: true },
     });
     if (!skill)
@@ -24,12 +25,13 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const { name, level } = await req.json();
     const updated = await prisma.skill.update({
-      where: { id: params.id },
+      where: { id },
       data: { name, level },
     });
     return NextResponse.json(updated);
@@ -44,10 +46,11 @@ export async function PUT(
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
-    await prisma.skill.delete({ where: { id: params.id } });
+    await prisma.skill.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error(error);

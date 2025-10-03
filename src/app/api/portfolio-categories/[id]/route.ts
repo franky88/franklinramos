@@ -27,10 +27,13 @@ export async function GET(
   }
 }
 
-export async function PUT(req: Request, context: { params: { id: string } }) {
+export async function PUT(
+  _req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const { id } = context.params;
-    const { name } = await req.json();
+    const { id } = await params;
+    const { name } = await _req.json();
 
     const updated = await prisma.portfolioCategory.update({
       where: { id },
@@ -49,10 +52,10 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
 
 export async function DELETE(
   _req: Request,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = context.params;
+    const { id } = await params;
 
     await prisma.portfolioCategory.delete({ where: { id } });
     return NextResponse.json({ success: true });
