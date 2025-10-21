@@ -9,6 +9,7 @@ import { getVisitsByDate } from "@/lib/analytics";
 import PortfoliosList from "@/components/portfolio/PortfolioList";
 import PortfolioCard from "@/components/portfolio/PortfolioCard";
 import { fetchPortfolio } from "@/lib/dataFetch";
+import VisitorsList from "@/components/visitors/VisitorsList";
 
 const Dashboard = async () => {
   const skillCategories = fetchSkillCategories();
@@ -70,7 +71,14 @@ const Dashboard = async () => {
         </div>
         <div className="bg-muted/50 border flex-1 rounded-xl md:min-h-min p-4">
           {/* <VisitorsList /> */}
-          <VisitorChart data={visits} />
+          <div>
+            <div className="w-full">
+              <VisitorsList />
+            </div>
+            <div className="w-full">
+              <VisitorChart data={visits} />
+            </div>
+          </div>
         </div>
       </div>
 

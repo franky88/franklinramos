@@ -25,9 +25,8 @@ const VisitorsList = () => {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Visitor Monitor</h1>
-      <table className="w-full text-sm border">
+    <div>
+      <table className="w-full text-sm border rounded-lg">
         <thead>
           <tr className="bg-gray-100">
             <th className="p-2 text-left">Time</th>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { requireAuthAPI } from "@/lib/authUser";
 
 export async function GET() {
   try {
@@ -18,6 +19,13 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const authuser = await requireAuthAPI();
+  if (!authuser.ok) {
+    return NextResponse.json(
+      { error: "Unauthorized please log in" },
+      { status: 401 }
+    );
+  }
   try {
     const { name } = await req.json();
     const category = await prisma.portfolioCategory.create({ data: { name } });

@@ -86,6 +86,9 @@ export async function createUser({
   if (!email) {
     throw new Error("Email is required");
   }
+  if (!name) {
+    throw new Error("Name is required");
+  }
 
   try {
     const user = await prisma.user.create({

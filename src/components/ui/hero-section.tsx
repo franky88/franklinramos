@@ -63,7 +63,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
         >
-          A <b>Multimedia Artist</b> with 5+ years of experience in{" "}
+          A <b>Multimedia Artist</b> with 9+ years of experience in{" "}
           <strong className="text-blue-400">
             <FlipWords
               words={skills}

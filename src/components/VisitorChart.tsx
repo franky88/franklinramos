@@ -22,7 +22,7 @@ const VisitorChart = ({ data }: Props) => {
   return (
     <ChartContainer
       config={chartConfig}
-      className="aspect-auto h-[250px] w-full"
+      className="aspect-auto h-[250px] w-full border mt-2"
     >
       <AreaChart
         width={600} // fixed width

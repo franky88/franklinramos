@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+import { getOrCreateUser } from "@/lib/authUser";
 
 export async function GET(req: Request) {
   try {
@@ -39,15 +39,13 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
+  const user = await getOrCreateUser();
+
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
-    const { userId } = await auth();
-
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    console.log("User ID:", userId);
-
     const { title, description, imageUrl, projectUrl, categoryId } =
       await req.json();
     const portfolio = await prisma.portfolio.create({
@@ -57,7 +55,7 @@ export async function POST(req: Request) {
         imageUrl,
         projectUrl,
         portfolioCategoryId: categoryId,
-        userId,
+        userId: user.id,
       },
     });
     return NextResponse.json(portfolio, { status: 201 });
